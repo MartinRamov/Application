@@ -19,21 +19,19 @@ public class UserRepositoryImpl implements UserRepository {
     @Autowired
     UserRepositoryCrud userRepositoryCrud;
 
-
     @Override
-    public boolean isFriend(User user1, User user2) {
+    public boolean isFriend(Long id1, Long id2) {
         return false;
     }
 
     @Override
-    public List<Activity> getActivities(User user) {
+    public List<Activity> getActivities(Long userID) {
         return null;
     }
 
     @Override
-    public List<Meeting> getMeetings(User user) {
+    public List<Meeting> getMeetings(Long userID) {
         return null;
     }
-
 
 }

@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface UserRepository {
 
-    boolean isFriend(User user1, User user2);
-    List<Activity> getActivities(User user);
-    List<Meeting> getMeetings (User user);
+    boolean isFriend(Long id1, Long id2);
+    List<Activity> getActivities(Long userID);
+    List<Meeting> getMeetings (Long userID);
 //    Activity createActivity(Activity activity, User user);
 
 
