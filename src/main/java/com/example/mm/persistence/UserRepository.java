@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Win8.1 on 28.06.2017.
  */
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository {
 
     boolean isFriend(User user1, User user2);
     List<Activity> getActivities(User user);
