@@ -17,7 +17,7 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
-    UserRepositoryCrud userRepositoryCrud;
+    private UserRepositoryCrud userRepositoryCrud;
 
     @Override
     public boolean isFriend(Long id1, Long id2) {

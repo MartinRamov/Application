@@ -1,5 +1,7 @@
 package com.example.mm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +25,20 @@ public class User extends BaseEntity {
     @Column
     public String password;
 
-    @ManyToMany
-    public List<User> friends= new ArrayList<>();
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    public List<User> friends = new ArrayList<>();
 
-    @ManyToMany
-    public List<Meeting> meetings= new ArrayList<>();
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_meetings",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "meeting_id"))
+    public List<Meeting> meetings = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany
-    public List<Activity> activities= new ArrayList<>();
+    public List<Activity> activities = new ArrayList<>();
 
 
 }
