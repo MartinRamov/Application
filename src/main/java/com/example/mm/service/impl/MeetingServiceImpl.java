@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Martin on 29-Jun-17.
@@ -48,21 +49,21 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public List<Meeting> getMeetingsForUser(Long user_id) {
+    public Set<Meeting> getMeetingsForUser(Long user_id) {
         User u = userRepositoryCrud.findOne(user_id);
-        List<Meeting> meetings = u.meetings;
+        Set<Meeting> meetings = u.meetings;
         return meetings;
     }
 
     @Override
-    public List<User> getUsersInMeeting(Long meeting_id) {
+    public Set<User> getUsersInMeeting(Long meeting_id) {
         Meeting meeting = meetingRepositoryCrud.findOne(meeting_id);
-        List<User> users = meeting.users;
+        Set<User> users = meeting.users;
         return users;
     }
 
     @Override
-    public List<User> getActiveUsersInMeeting(Long meeting_id) {
+    public Set<User> getActiveUsersInMeeting(Long meeting_id) {
         return null;
     }
 

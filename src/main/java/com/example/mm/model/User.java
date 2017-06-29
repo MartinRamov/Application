@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Win8.1 on 28.06.2017.
@@ -34,11 +36,10 @@ public class User extends BaseEntity {
     @JoinTable(name = "user_meetings",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "meeting_id"))
-    public List<Meeting> meetings = new ArrayList<>();
+    public Set<Meeting> meetings = new TreeSet<>();
 
     @JsonIgnore
-    @OneToMany
-    public List<Activity> activities = new ArrayList<>();
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    public Set<Activity> activities = new TreeSet<>();
 
 }
