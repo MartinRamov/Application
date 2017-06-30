@@ -28,7 +28,7 @@ public class User extends BaseEntity {
     public String password;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<User> friends = new ArrayList<>();
 
     @JsonIgnore

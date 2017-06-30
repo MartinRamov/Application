@@ -96,7 +96,7 @@ public class MeetingServiceImpl implements MeetingService {
     public void addUserToMeeting(Long user_id, Long meeting_id) {
         Meeting meeting = meetingRepositoryCrud.findOne(meeting_id);
         User user = userRepositoryCrud.findOne(user_id);
-        if(!meeting.users.contains(user) && !user.meetings.contains(meeting)) {
+        if (!meeting.users.contains(user) && !user.meetings.contains(meeting)) {
             meeting.users.add(user);
             user.meetings.add(meeting);
             meetingRepositoryCrud.save(meeting);
@@ -108,7 +108,7 @@ public class MeetingServiceImpl implements MeetingService {
     public void removeUserFromMeeting(Long user_id, Long meeting_id) {
         Meeting meeting = meetingRepositoryCrud.findOne(meeting_id);
         User user = userRepositoryCrud.findOne(user_id);
-        if(meeting.users.contains(user) && user.meetings.contains(meeting)) {
+        if (meeting.users.contains(user) && user.meetings.contains(meeting)) {
             meeting.users.remove(user);
             user.meetings.remove(meeting);
             meetingRepositoryCrud.save(meeting);
