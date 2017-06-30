@@ -42,4 +42,8 @@ public class User extends BaseEntity {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     public Set<Activity> activities = new TreeSet<>();
 
+    @Override
+    public String toString() {
+        return String.format("%d. %s %s %s", id, firstname, lastname, email);
+    }
 }

@@ -2,6 +2,8 @@ package com.example.mm.service.impl;
 
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
+import com.example.mm.model.categories.ActivityCategory;
+import com.example.mm.model.categories.ActivityTime;
 import com.example.mm.persistence.crud.MeetingRepositoryCrud;
 import com.example.mm.persistence.crud.UserRepositoryCrud;
 import com.example.mm.service.MeetingService;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.jws.soap.SOAPBinding;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -26,15 +30,26 @@ public class MeetingServiceImpl implements MeetingService {
     private UserRepositoryCrud userRepositoryCrud;
 
     @Override
-    public Meeting createMeeting() {
+    public Meeting createMeeting(String title, ActivityCategory ac, LocalDate date,
+                                 LocalTime timeFrom, LocalTime timeTo) {
         Meeting meeting = new Meeting();
+        meeting.title = title;
+        meeting.activityCategory = ac;
+        meeting.date = date;
+        meeting.timeFrom = timeFrom;
+        meeting.timeTo = timeTo;
         return meetingRepositoryCrud.save(meeting);
     }
 
     @Override
-    public Meeting updateMeeting(Long meeting_id) {
+    public Meeting updateMeeting(Long meeting_id, String title, ActivityCategory ac, LocalDate date,
+                                 LocalTime timeFrom, LocalTime timeTo) {
         Meeting meeting = meetingRepositoryCrud.findOne(meeting_id);
-        //Do something with meeting
+        meeting.title = title;
+        meeting.activityCategory = ac;
+        meeting.date = date;
+        meeting.timeFrom = timeFrom;
+        meeting.timeTo = timeTo;
         return meetingRepositoryCrud.save(meeting);
     }
 

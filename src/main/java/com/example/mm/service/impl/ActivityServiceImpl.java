@@ -2,12 +2,17 @@ package com.example.mm.service.impl;
 
 import com.example.mm.model.Activity;
 import com.example.mm.model.User;
+import com.example.mm.model.categories.ActivityCategory;
+import com.example.mm.model.categories.ActivityTime;
 import com.example.mm.persistence.crud.ActivityRepositoryCrud;
 import com.example.mm.persistence.crud.UserRepositoryCrud;
 import com.example.mm.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -23,8 +28,16 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityRepositoryCrud activityRepositoryCrud;
 
     @Override
-    public Activity createActivity(Long user_id) {
+    public Activity createActivity(Long user_id, String title, ActivityCategory ac,
+                                   ActivityTime at, LocalDate date,
+                                   LocalTime timeFrom, LocalTime timeTo) {
         Activity activity = new Activity();
+        activity.title = title;
+        activity.activityCategory = ac;
+        activity.activityTime = at;
+        activity.date = date;
+        activity.timeFrom = timeFrom;
+        activity.timeTo = timeTo;
         User user = userRepositoryCrud.findOne(user_id);
         activity.user = user;
         activity = activityRepositoryCrud.save(activity);
@@ -34,11 +47,17 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Activity updateActivity(Long user_id, Long activity_id) {
+    public Activity updateActivity(Long user_id, Long activity_id, String title,
+                                   ActivityCategory ac, ActivityTime at,
+                                   LocalDate date, LocalTime timeFrom,
+                                   LocalTime timeTo) {
         Activity activity = activityRepositoryCrud.findOne(activity_id);
-
-        //Edit activity here
-
+        activity.title = title;
+        activity.activityCategory = ac;
+        activity.activityTime = at;
+        activity.date = date;
+        activity.timeFrom = timeFrom;
+        activity.timeTo = timeTo;
         User user = userRepositoryCrud.findOne(user_id);
         activity.user = user;
         activity = activityRepositoryCrud.save(activity);

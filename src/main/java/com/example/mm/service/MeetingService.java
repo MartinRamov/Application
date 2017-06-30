@@ -2,7 +2,10 @@ package com.example.mm.service;
 
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
+import com.example.mm.model.categories.ActivityCategory;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
@@ -11,9 +14,11 @@ import java.util.Set;
  */
 public interface MeetingService {
 
-    Meeting createMeeting();
+    Meeting createMeeting(String title, ActivityCategory ac, LocalDate date,
+                          LocalTime timeFrom, LocalTime timeTo);
 
-    Meeting updateMeeting(Long meeting_id);
+    Meeting updateMeeting(Long meeting_id, String title, ActivityCategory ac, LocalDate date,
+                          LocalTime timeFrom, LocalTime timeTo);
 
     void deleteMeeting(Long meeting_id);
 
