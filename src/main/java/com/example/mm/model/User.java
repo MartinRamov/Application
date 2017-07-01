@@ -39,8 +39,21 @@ public class User extends BaseEntity {
     public Set<Meeting> meetings = new TreeSet<>();
 
     @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_chats",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id"))
+    public Set<Chat> chats = new TreeSet<>();
+
+
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     public Set<Activity> activities = new TreeSet<>();
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    public Set<ChatItem> chatItems = new TreeSet<>();
+
 
     @Override
     public String toString() {
