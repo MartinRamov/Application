@@ -1,4 +1,4 @@
-package com.example.mm.persistence.crud;
+package com.example.mm.persistence;
 
 import com.example.mm.model.User;
 import org.springframework.data.repository.CrudRepository;

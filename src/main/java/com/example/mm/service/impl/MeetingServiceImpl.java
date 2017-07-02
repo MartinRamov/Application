@@ -3,18 +3,14 @@ package com.example.mm.service.impl;
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
 import com.example.mm.model.categories.ActivityCategory;
-import com.example.mm.model.categories.ActivityTime;
-import com.example.mm.persistence.crud.MeetingRepositoryCrud;
-import com.example.mm.persistence.crud.UserRepositoryCrud;
+import com.example.mm.persistence.MeetingRepositoryCrud;
+import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**

@@ -4,7 +4,7 @@
 //import com.example.mm.model.Meeting;
 //import com.example.mm.model.User;
 //import com.example.mm.persistence.UserRepository;
-//import com.example.mm.persistence.crud.UserRepositoryCrud;
+//import UserRepositoryCrud;
 //import org.junit.Assert;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;

@@ -3,7 +3,7 @@ package com.example.mm.service.impl;
 import com.example.mm.model.Activity;
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
-import com.example.mm.persistence.crud.UserRepositoryCrud;
+import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(String firstname, String lastname, String email, String password) {
         User user = new User();
-        user.firstname = firstname;
-        user.lastname = lastname;
+        user.firstName = firstname;
+        user.lastName = lastname;
         user.email = email;
         user.password = password;
         userRepositoryCrud.save(user);
@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
     public User updateUser(Long id, String firstname, String lastname, String email, String password) {
         User user = userRepositoryCrud.findOne(id);
         user.id = id;
-        user.firstname = firstname;
-        user.lastname = lastname;
+        user.firstName = firstname;
+        user.lastName = lastname;
         user.email = email;
         user.password = password;
         userRepositoryCrud.save(user);

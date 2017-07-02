@@ -2,8 +2,8 @@ package com.example.mm.service.impl;
 
 import com.example.mm.model.FriendRequest;
 import com.example.mm.model.User;
-import com.example.mm.persistence.crud.FriendRequestRepositoryCrud;
-import com.example.mm.persistence.crud.UserRepositoryCrud;
+import com.example.mm.persistence.FriendRequestRepositoryCrud;
+import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.FriendRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -4,15 +4,14 @@ import com.example.mm.model.Activity;
 import com.example.mm.model.User;
 import com.example.mm.model.categories.ActivityCategory;
 import com.example.mm.model.categories.ActivityTime;
-import com.example.mm.persistence.crud.ActivityRepositoryCrud;
-import com.example.mm.persistence.crud.UserRepositoryCrud;
+import com.example.mm.persistence.ActivityRepositoryCrud;
+import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.Set;
 
 /**

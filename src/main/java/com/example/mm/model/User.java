@@ -16,10 +16,10 @@ import java.util.TreeSet;
 public class User extends BaseEntity {
 
     @Column
-    public String firstname;
+    public String firstName;
 
     @Column
-    public String lastname;
+    public String lastName;
 
     @Column
     public String email;
@@ -57,6 +57,6 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return String.format("%d. %s %s %s", id, firstname, lastname, email);
+        return String.format("%d. %s %s %s", id, firstName, lastName, email);
     }
 }
