@@ -71,7 +71,9 @@ public class ActivityServiceImpl implements ActivityService {
         Activity activity = activityRepositoryCrud.findOne(activity_id);
         user.activities.remove(activity);
         userRepositoryCrud.save(user);
-        activityRepositoryCrud.delete(activity_id);
+        activity.user = null;
+        activity = activityRepositoryCrud.save(activity);
+        activityRepositoryCrud.delete(activity.id);
     }
 
     @Override
