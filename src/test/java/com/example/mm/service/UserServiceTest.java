@@ -46,7 +46,6 @@ public class UserServiceTest {
         User test = userService.createUser("a", "b", "a@a.com", "pas");
         Assert.assertEquals("Conunt frineds error", 0, userService.countFriends(test.id));
         Assert.assertEquals("Conunt frineds error", 1, userService.countFriends(user.id));
-
     }
 
     @Test

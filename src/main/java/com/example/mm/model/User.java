@@ -29,6 +29,9 @@ public class User extends BaseEntity {
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id"))
     public List<User> friends = new ArrayList<>();
 
     @JsonIgnore
