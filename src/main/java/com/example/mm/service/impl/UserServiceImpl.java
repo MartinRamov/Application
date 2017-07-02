@@ -88,9 +88,9 @@ public class UserServiceImpl implements UserService {
         User u1 = userRepositoryCrud.findOne(id1);
         User u2 = userRepositoryCrud.findOne(id2);
         u1.friends.add(u2);
-//        u2.friends.add(u1);
+        u2.friends.add(u1);
         userRepositoryCrud.save(u1);
-//        userRepositoryCrud.save(u2);
+        userRepositoryCrud.save(u2);
     }
 
     @Override

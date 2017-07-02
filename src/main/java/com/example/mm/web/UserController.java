@@ -43,10 +43,10 @@ public class UserController {
         return userService.updateUser(id, firstName, lastName, email, password);
     }
 
-//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-//    public void deleteUser(@PathVariable Long id) {
-//        userService.deleteUser(id);
-//    }
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
 
     @RequestMapping(value = "/friends/{id1}/{id2}", method = RequestMethod.GET)
     public boolean checkIfFriends(@PathVariable Long id1, @PathVariable Long id2) {

@@ -33,7 +33,7 @@ public class Activity extends BaseEntity {
     @Column
     public LocalTime timeTo;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     public User user;
 
