@@ -8,6 +8,7 @@ import com.example.mm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,9 +18,7 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepositoryCrud userRepositoryCrud;
-
-
+    private UserRepositoryCrud userRepositoryCrud;
 
     @Override
     public User createUser(String firstname, String lastname, String email, String password) {
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
         user.lastName = lastname;
         user.email = email;
         user.password = password;
-        userRepositoryCrud.save(user);
+        user = userRepositoryCrud.save(user);
         return user;
     }
 
@@ -40,7 +39,7 @@ public class UserServiceImpl implements UserService {
         user.lastName = lastname;
         user.email = email;
         user.password = password;
-        userRepositoryCrud.save(user);
+        user = userRepositoryCrud.save(user);
         return user;
     }
 
@@ -109,5 +108,10 @@ public class UserServiceImpl implements UserService {
         userRepositoryCrud.save(u1);
         userRepositoryCrud.save(u2);
 
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return (List<User>) userRepositoryCrud.findAll();
     }
 }

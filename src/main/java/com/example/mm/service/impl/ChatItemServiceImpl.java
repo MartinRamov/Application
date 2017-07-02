@@ -17,12 +17,15 @@ import java.util.Set;
  */
 @Service
 public class ChatItemServiceImpl implements ChatItemService {
+
     @Autowired
-    ChatItemRepositoryCrud chatItemRepositoryCrud;
+    private ChatItemRepositoryCrud chatItemRepositoryCrud;
+
     @Autowired
-    UserRepositoryCrud userRepositoryCrud;
+    private UserRepositoryCrud userRepositoryCrud;
+
     @Autowired
-    ChatRepositoryCrud chatRepositoryCrud;
+    private ChatRepositoryCrud chatRepositoryCrud;
 
 
     @Override
@@ -31,7 +34,7 @@ public class ChatItemServiceImpl implements ChatItemService {
         chatItem.user = userRepositoryCrud.findOne(userId);
         chatItem.chat = chatRepositoryCrud.findOne(chatId);
         chatItem.message = message;
-        chatItemRepositoryCrud.save(chatItem);
+        chatItem = chatItemRepositoryCrud.save(chatItem);
         return chatItem;
     }
 

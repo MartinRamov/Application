@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Win8.1 on 30.06.2017.
@@ -41,12 +42,18 @@ public class UserServiceTest {
         userService.addFriend(user.id,user2.id);
         Assert.assertEquals("Ne e kreiran friend",true, userService.isFriend(user.id,user2.id));
 
+        //Count friends test
+        User test = userService.createUser("a", "b", "a@a.com", "pas");
+        Assert.assertEquals("Conunt frineds error", 0, userService.countFriends(test.id));
+        Assert.assertEquals("Conunt frineds error", 1, userService.countFriends(user.id));
+
     }
 
     @Test
-    public void countFriends(){
-        Assert.assertEquals("Ne se izbroeni prijatelite", 1,userService.countFriends(Long.parseLong("37")));
-        Assert.assertEquals("Ne se izbroeni prijatelite", 0,userService.countFriends(Long.parseLong("35")));
+    public void testAll() {
+        List<User> users = userService.getAllUsers();
+        Assert.assertNotNull("Error", users);
+        System.out.println(users);
     }
 
 

@@ -19,12 +19,15 @@ import java.util.Set;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FriendRequestServiceTest {
+
     @Autowired
-    FriendRequestService friendRequestService;
+    private FriendRequestService friendRequestService;
+
     @Autowired
-    UserService userService;
-    User u1;
-    User u2;
+    private UserService userService;
+
+    private User u1;
+    private User u2;
 
     @Before
     public void createUsers() {
@@ -45,7 +48,7 @@ public class FriendRequestServiceTest {
         Set<FriendRequest> set = friendRequestService.getRecievedRequests(u2.id);
         boolean friend=false;
         for(FriendRequest s : set){
-            if(u1.id==s.sender.id){
+            if(u1.id.equals(s.sender.id)){
                 friend=true;
                 break;
             }

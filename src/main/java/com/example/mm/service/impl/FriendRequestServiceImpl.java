@@ -17,10 +17,12 @@ import java.util.Set;
  */
 @Service
 public class FriendRequestServiceImpl implements FriendRequestService {
+
     @Autowired
-    FriendRequestRepositoryCrud friendRequestRepositoryCrud;
+    private FriendRequestRepositoryCrud friendRequestRepositoryCrud;
+
     @Autowired
-    UserRepositoryCrud userRepositoryCrud;
+    private UserRepositoryCrud userRepositoryCrud;
 
 
     @Override
@@ -30,7 +32,7 @@ public class FriendRequestServiceImpl implements FriendRequestService {
         FriendRequest fr = new FriendRequest();
         fr.sender = sender;
         fr.receiver = reciever;
-        friendRequestRepositoryCrud.save(fr);
+        fr = friendRequestRepositoryCrud.save(fr);
         return fr;
     }
 

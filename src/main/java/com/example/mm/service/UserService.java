@@ -4,6 +4,7 @@ import com.example.mm.model.Activity;
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,4 +30,6 @@ public interface UserService {
     int countFriends(Long id1);
 
     void deleteFriend(Long id1, Long id2);
+
+    List<User> getAllUsers();
 }

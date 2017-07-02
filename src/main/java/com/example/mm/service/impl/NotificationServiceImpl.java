@@ -38,8 +38,7 @@ public class NotificationServiceImpl implements NotificationService {
         notification.receiver = friendRequest.receiver;
         notification.checked=false;
         notification.friendRequest=friendRequest;
-        notificationRepositoryCrud.save(notification);
-
+        notification = notificationRepositoryCrud.save(notification);
         return notification;
     }
 
@@ -54,7 +53,7 @@ public class NotificationServiceImpl implements NotificationService {
             notification.meeting = meeting;
             notification.receiver = u;
             notification.checked=false;
-            notificationRepositoryCrud.save(notification);
+            notification = notificationRepositoryCrud.save(notification);
             notifications.add(notification);
         }
 

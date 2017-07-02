@@ -24,20 +24,24 @@ import java.util.Set;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class NotificationServiceTests {
-    @Autowired
-    NotificationService notificationService;
-    @Autowired
-    UserService userService;
-    @Autowired
-    FriendRequestService friendRequestService;
-    @Autowired
-    MeetingService meetingService;
 
-    User user1;
-    User user2;
-    User user3;
-    FriendRequest fr;
-    Meeting meeting;
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private FriendRequestService friendRequestService;
+
+    @Autowired
+    private MeetingService meetingService;
+
+    private User user1;
+    private User user2;
+    private User user3;
+    private FriendRequest fr;
+    private Meeting meeting;
 
     @Before
     public void before() {
@@ -64,7 +68,7 @@ public class NotificationServiceTests {
         Assert.assertNotNull("Ne e kreirana notifikacija za prijatelstvo",n);
         boolean friend=false;
         for(Notification notif : n2){
-            if(user1.id==notif.receiver.id){
+            if(user1.id.equals(notif.receiver.id)){
                 friend=true;
                 break;
             }
@@ -72,7 +76,7 @@ public class NotificationServiceTests {
         Assert.assertEquals("Ne e kreirana n za Soodveten user1", true, friend);
         friend=false;
         for(Notification notif : n2){
-            if(user2.id==notif.receiver.id){
+            if(user2.id.equals(notif.receiver.id)){
                 friend=true;
                 break;
             }
@@ -81,7 +85,7 @@ public class NotificationServiceTests {
 
         friend=false;
         for(Notification notif : n2){
-            if(user3.id==notif.receiver.id){
+            if(user3.id.equals(notif.receiver.id)){
                 friend=true;
                 break;
             }

@@ -19,12 +19,15 @@ import java.util.Set;
  */
 @Service
 public class ChatServiceImpl implements ChatService {
+
     @Autowired
-    ChatRepositoryCrud chatRepositoryCrud;
+    private ChatRepositoryCrud chatRepositoryCrud;
+
     @Autowired
-    UserRepositoryCrud userRepositoryCrud;
+    private UserRepositoryCrud userRepositoryCrud;
+
     @Autowired
-    ChatItemRepositoryCrud chatItemRepositoryCrud;
+    private ChatItemRepositoryCrud chatItemRepositoryCrud;
 
 
     @Override
@@ -75,6 +78,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public Chat createChat() {
         Chat c = new Chat();
+        c = chatRepositoryCrud.save(c);
         return c;
     }
 
