@@ -27,6 +27,9 @@ public class User extends BaseEntity {
     @Column
     public String password;
 
+
+    //@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_friends",
