@@ -10,13 +10,13 @@ import java.util.Set;
  */
 public interface FriendRequestService {
 
-    FriendRequest createFriendRequest(Long userSenderId, Long userRecieverId);
+    FriendRequest createFriendRequest(Long userSenderId, Long userReceiverId);
 
     User getSender(Long friendRequestId);
 
-    User getReciever(Long friendRequestId);
+    User getReceiver(Long friendRequestId);
 
-    Set<FriendRequest> getRecievedRequests(Long recieverId);
+    Set<FriendRequest> getReceivedRequests(Long receiverId);
 
     void deleteFriendRequest(Long friendRequestId);
 

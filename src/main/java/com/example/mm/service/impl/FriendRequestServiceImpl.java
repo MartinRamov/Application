@@ -44,14 +44,14 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     }
 
     @Override
-    public User getReciever(Long friendRequestId) {
+    public User getReceiver(Long friendRequestId) {
         FriendRequest fr = friendRequestRepositoryCrud.findOne(friendRequestId);
         User receiver = userRepositoryCrud.findOne(fr.receiver.id);
         return receiver;
     }
 
     @Override
-    public Set<FriendRequest> getRecievedRequests(Long recieverId) {
+    public Set<FriendRequest> getReceivedRequests(Long recieverId) {
         Set<FriendRequest> set = new HashSet<FriendRequest>();
         Iterable<FriendRequest> all = friendRequestRepositoryCrud.findAll();
         Iterator friendRequests = all.iterator();

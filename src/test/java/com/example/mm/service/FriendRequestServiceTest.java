@@ -41,11 +41,11 @@ public class FriendRequestServiceTest {
         FriendRequest fr = friendRequestService.createFriendRequest(u1.id, u2.id);
         Assert.assertNotNull("Ne e kreiran friendRequest", fr);
         Assert.assertEquals("Greska sender", u1, friendRequestService.getSender(fr.id));
-        Assert.assertEquals("Greska reciever", u2, friendRequestService.getReciever(fr.id));
+        Assert.assertEquals("Greska reciever", u2, friendRequestService.getReceiver(fr.id));
 
 
 
-        Set<FriendRequest> set = friendRequestService.getRecievedRequests(u2.id);
+        Set<FriendRequest> set = friendRequestService.getReceivedRequests(u2.id);
         boolean friend=false;
         for(FriendRequest s : set){
             if(u1.id.equals(s.sender.id)){
