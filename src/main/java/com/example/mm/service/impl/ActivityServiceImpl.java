@@ -51,14 +51,24 @@ public class ActivityServiceImpl implements ActivityService {
                                    LocalDate date, LocalTime timeFrom,
                                    LocalTime timeTo) {
         Activity activity = activityRepositoryCrud.findOne(activity_id);
+        User user = activity.user;
+        if(title!=null)
         activity.title = title;
+        if(ac!=null)
         activity.activityCategory = ac;
+        if(at!=null)
         activity.activityTime = at;
+        if(date!=null)
         activity.date = date;
+        if(timeFrom!=null)
         activity.timeFrom = timeFrom;
+        if(timeTo!=null)
         activity.timeTo = timeTo;
-        User user = userRepositoryCrud.findOne(user_id);
-        activity.user = user;
+        if(user_id!=null){
+            user = userRepositoryCrud.findOne(user_id);
+            activity.user = user;
+        }
+
         activity = activityRepositoryCrud.save(activity);
         user.activities.add(activity);
         userRepositoryCrud.save(user);

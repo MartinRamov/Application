@@ -41,10 +41,15 @@ public class MeetingServiceImpl implements MeetingService {
     public Meeting updateMeeting(Long meeting_id, String title, ActivityCategory ac, LocalDate date,
                                  LocalTime timeFrom, LocalTime timeTo) {
         Meeting meeting = meetingRepositoryCrud.findOne(meeting_id);
+        if(title!=null)
         meeting.title = title;
+        if(ac!=null)
         meeting.activityCategory = ac;
+        if(date!=null)
         meeting.date = date;
+        if(timeFrom!=null)
         meeting.timeFrom = timeFrom;
+        if(timeTo!=null)
         meeting.timeTo = timeTo;
         return meetingRepositoryCrud.save(meeting);
     }
