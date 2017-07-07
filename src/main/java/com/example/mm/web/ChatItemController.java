@@ -13,7 +13,7 @@ import java.util.Set;
  * Created by mila.gjurova on 7/5/2017.
  */
 @RestController
-@RequestMapping(value = "chatItem", produces = "application/json")
+@RequestMapping(value = "/chatItem", produces = "application/json")
 public class ChatItemController {
 
     @Autowired
@@ -28,6 +28,8 @@ public class ChatItemController {
     public void delete(@PathVariable Long chatItemId) {
         chatItemService.deleteChatItem(chatItemId);
     }
+
+
 
     @RequestMapping(value = "/get/{chatItemId}", method = RequestMethod.GET)
     public ChatItem getChatItem(@PathVariable Long chatItemId) {

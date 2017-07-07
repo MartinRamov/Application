@@ -1,5 +1,7 @@
 package com.example.mm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalTime;
 
@@ -11,9 +13,11 @@ import java.time.LocalTime;
 public class ChatItem extends BaseEntity {
 
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "chat_id")
     public Chat chat;
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

@@ -1,6 +1,7 @@
 package com.example.mm.model;
 
 import com.example.mm.model.categories.NotificationCategory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "notifications")
 public class Notification extends BaseEntity {
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     public User receiver;

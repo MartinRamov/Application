@@ -14,6 +14,7 @@ import java.util.Set;
 /**
  * Created by mila.gjurova on 7/5/2017.
  */
+//Tested
 @RestController
 @RequestMapping(value = "/activities", produces = "application/json")
 public class ActivityController {

@@ -2,6 +2,7 @@ package com.example.mm.model;
 
 import com.example.mm.model.categories.ActivityCategory;
 import com.example.mm.model.categories.ActivityTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ public class Activity extends BaseEntity {
     @Column
     public LocalTime timeTo;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     public User user;

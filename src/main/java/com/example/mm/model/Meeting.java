@@ -2,6 +2,7 @@ package com.example.mm.model;
 
 import com.example.mm.model.categories.ActivityCategory;
 import com.example.mm.model.categories.ActivityTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -32,6 +33,7 @@ public class Meeting extends BaseEntity {
     @Column
     public LocalTime timeTo;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "meetings", fetch = FetchType.EAGER)
     public Set<User> users = new TreeSet<>();
 
