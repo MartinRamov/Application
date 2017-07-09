@@ -17,8 +17,7 @@ import java.util.Set;
 public class ChatController {
 
     @Autowired
-    ChatService chatService;
-
+    private ChatService chatService;
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public Chat getChat(@PathVariable Long id) {
@@ -40,6 +39,7 @@ public class ChatController {
         chatService.deleteChat(chatId);
     }
 
+    //Tested:OK
     @RequestMapping(value = "/addUser/{chatId}", method = RequestMethod.POST)
     public void addUser(@PathVariable Long chatId, @RequestParam Long userId){
         chatService.addUser(chatId,userId);

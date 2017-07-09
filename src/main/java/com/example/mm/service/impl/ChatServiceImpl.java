@@ -67,6 +67,9 @@ public class ChatServiceImpl implements ChatService {
     public void addUser(Long chatId, Long userId) {
         Chat c = chatRepositoryCrud.findOne(chatId);
         c.users.add(userRepositoryCrud.findOne(userId));
+        User u = userRepositoryCrud.findOne(userId);
+        u.chats.add(c);
+        userRepositoryCrud.save(u);
         chatRepositoryCrud.save(c);
     }
 
