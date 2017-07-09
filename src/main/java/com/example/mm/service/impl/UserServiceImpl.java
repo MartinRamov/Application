@@ -1,8 +1,10 @@
 package com.example.mm.service.impl;
 
 import com.example.mm.model.Activity;
+import com.example.mm.model.FriendRequest;
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
+import com.example.mm.persistence.FriendRequestRepositoryCrud;
 import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepositoryCrud userRepositoryCrud;
+
+    @Autowired
+    private FriendRequestRepositoryCrud friendRequestRepositoryCrud;
 
     @Override
     public User createUser(String firstname, String lastname, String email, String password) {
@@ -54,7 +59,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-        userRepositoryCrud.delete(userRepositoryCrud.findOne(id));
+        User user = userRepositoryCrud.findOne(id);
+        user.chats.clear();
+        user.friends.clear();
+        user.friendOf.clear();
+        user.meetings.clear();
+        user.activities.clear();
+        user.chatItems.clear();
+        user.notifications.clear();
+        for(FriendRequest f : user.sentRequests) {
+            friendRequestRepositoryCrud.delete(f.id);
+        }
+        for(FriendRequest f : user.receivedRequests) {
+            friendRequestRepositoryCrud.delete(f.id);
+        }
+        user.sentRequests.clear();
+        user.receivedRequests.clear();
+        user = userRepositoryCrud.save(user);
+        userRepositoryCrud.delete(user);
     }
 
     @Override

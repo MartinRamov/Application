@@ -23,11 +23,13 @@ import java.util.Set;
 public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
-    FriendRequestRepositoryCrud friendRequestRepositoryCrud;
+    private FriendRequestRepositoryCrud friendRequestRepositoryCrud;
+
     @Autowired
-    MeetingRepositoryCrud meetingRepositoryCrud;
+    private MeetingRepositoryCrud meetingRepositoryCrud;
+
     @Autowired
-    NotificationRepositoryCrud notificationRepositoryCrud;
+    private NotificationRepositoryCrud notificationRepositoryCrud;
 
 
     @Override

@@ -24,7 +24,7 @@ public class Notification extends BaseEntity {
     @JoinColumn(name = "meeting_id")
     public Meeting meeting;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "friendRequest_id")
     public FriendRequest friendRequest;
 

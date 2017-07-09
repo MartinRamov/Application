@@ -3,6 +3,7 @@ package com.example.mm.service.impl;
 import com.example.mm.model.FriendRequest;
 import com.example.mm.model.User;
 import com.example.mm.persistence.FriendRequestRepositoryCrud;
+import com.example.mm.persistence.NotificationRepositoryCrud;
 import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.FriendRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,21 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     @Autowired
     private UserRepositoryCrud userRepositoryCrud;
 
+    @Autowired
+    private NotificationRepositoryCrud notificationRepositoryCrud;
+
 
     @Override
     public FriendRequest createFriendRequest(Long userSenderId, Long userRecieverId) {
         User sender = userRepositoryCrud.findOne(userSenderId);
-        User reciever = userRepositoryCrud.findOne(userRecieverId);
+        User receiver = userRepositoryCrud.findOne(userRecieverId);
         FriendRequest fr = new FriendRequest();
         fr.sender = sender;
-        fr.receiver = reciever;
+        fr.receiver = receiver;
+        sender.sentRequests.add(fr);
+        receiver.receivedRequests.add(fr);
+        userRepositoryCrud.save(sender);
+        userRepositoryCrud.save(receiver);
         fr = friendRequestRepositoryCrud.save(fr);
         return fr;
     }
@@ -67,8 +75,11 @@ public class FriendRequestServiceImpl implements FriendRequestService {
 
     @Override
     public void deleteFriendRequest(Long friendRequestId) {
-        friendRequestRepositoryCrud.delete(friendRequestId);
-
+        FriendRequest friendRequest = friendRequestRepositoryCrud.findOne(friendRequestId);
+        friendRequest.sender = null;
+        friendRequest.receiver = null;
+        friendRequest = friendRequestRepositoryCrud.save(friendRequest);
+        friendRequestRepositoryCrud.delete(friendRequest.id);
     }
 
     @Override

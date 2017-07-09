@@ -2,6 +2,7 @@ package com.example.mm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -81,6 +82,20 @@ public class User extends BaseEntity {
     @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,
             org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     public Set<ChatItem> chatItems = new TreeSet<>();
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "receiver", cascade = {CascadeType.ALL, CascadeType.REMOVE})
+    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,
+            org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
+    public Set<Notification> notifications = new TreeSet<>();
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "sender", cascade = CascadeType.REMOVE)
+    public Set<FriendRequest> sentRequests = new TreeSet<>();
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "receiver", cascade = CascadeType.REMOVE)
+    public Set<FriendRequest> receivedRequests = new TreeSet<>();
 
 
     @Override
