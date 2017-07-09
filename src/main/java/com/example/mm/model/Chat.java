@@ -13,11 +13,11 @@ import java.util.TreeSet;
 @Table(name = "chats")
 public class Chat extends BaseEntity {
 
-    @JsonIgnore
+
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "chats")
     public Set<User> users = new TreeSet<User>();
 
-    @JsonIgnore
+    
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "chat")
     public Set<ChatItem> chatItems = new TreeSet<ChatItem>();
 

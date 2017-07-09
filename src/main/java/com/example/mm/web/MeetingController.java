@@ -21,23 +21,28 @@ public class MeetingController {
     @Autowired
     MeetingService meetingService;
 
+    //Tested
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Meeting createMeeting(@RequestParam String title, @RequestParam ActivityCategory ac, @RequestParam LocalDate date, @RequestParam
             LocalTime timeFrom, @RequestParam LocalTime timeTo) {
         return meetingService.createMeeting(title, ac, date, timeFrom, timeTo);
     }
 
-    @RequestMapping(value = "/update/{meetingId}", method = RequestMethod.PUT)
+    //Tested
+    @RequestMapping(value = "/update/{meetingId}", method = RequestMethod.POST)
     public Meeting updateMeeting(@PathVariable Long meetingId, @RequestParam String title, @RequestParam ActivityCategory ac, @RequestParam LocalDate date,
                                  @RequestParam LocalTime timeFrom, @RequestParam LocalTime timeTo) {
         return meetingService.updateMeeting(meetingId, title, ac, date, timeFrom, timeTo);
     }
 
+    //Tested , problem like with user
     @RequestMapping(value = "/delete/{meetingId}", method = RequestMethod.DELETE)
     public void deleteMeeting(@PathVariable Long meetingId) {
         meetingService.deleteMeeting(meetingId);
     }
 
+
+    //Test
     @RequestMapping(value = "/get/{meetingId}", method = RequestMethod.GET)
     public Meeting getMeeting(@PathVariable Long meetingId) {
         return meetingService.getMeeting(meetingId);
@@ -59,26 +64,30 @@ public class MeetingController {
         return meetingService.getActiveUsersInMeeting(meetingId);
     }
 
-    @RequestMapping(value = "/accept/{meetingId}", method = RequestMethod.PUT)
+    //Not implemented
+    @RequestMapping(value = "/accept/{meetingId}", method = RequestMethod.POST)
     public void acceptMeeting(@PathVariable Long meetingId, @RequestParam Long userId) {
         meetingService.accept(userId, meetingId);
     }
 
-    @RequestMapping(value = "/decline/{meetingId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/decline/{meetingId}", method = RequestMethod.POST)
     public void declineMeeting(@PathVariable Long meetingId, @RequestParam Long userId) {
         meetingService.decline(userId, meetingId);
     }
 
+    //Tested
     @RequestMapping(value = "/addUser/{meetingId}/{userId}", method = RequestMethod.PUT)
     public void addUserToMeeting(@PathVariable Long meetingId, @PathVariable Long userId) {
         meetingService.addUserToMeeting(userId, meetingId);
     }
 
+    //Tested
     @RequestMapping(value = "/removeUser/{meetingId}/{userId}", method = RequestMethod.PUT)
     public void removeUserToMeeting(@PathVariable Long meetingId, @PathVariable Long userId) {
         meetingService.removeUserFromMeeting(userId, meetingId);
     }
 
+    //Tested
     @RequestMapping(value = "/numberOfUsers/{meeting_id}", method = RequestMethod.GET)
     public Integer getNumberOfUsersInMeeting(@PathVariable Long meeting_id) {
         return meetingService.getNumberOfUsersInMeeting(meeting_id);

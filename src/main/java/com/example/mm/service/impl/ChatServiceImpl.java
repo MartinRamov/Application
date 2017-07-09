@@ -91,5 +91,6 @@ public class ChatServiceImpl implements ChatService {
         Chat c = chatRepositoryCrud.findOne(chatId);
         c.chatItems.add(cI);
         chatRepositoryCrud.save(c);
+
     }
 }

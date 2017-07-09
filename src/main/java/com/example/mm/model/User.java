@@ -1,6 +1,7 @@
 package com.example.mm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ public class User extends BaseEntity {
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,
+            org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     @JoinTable(name = "user_friends",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id"))
@@ -39,6 +42,8 @@ public class User extends BaseEntity {
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,
+            org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     @JoinTable(name = "user_friends",
             joinColumns = @JoinColumn(name = "friend_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -46,13 +51,19 @@ public class User extends BaseEntity {
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,
+            org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     @JoinTable(name = "user_meetings",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "meeting_id"))
     public Set<Meeting> meetings = new TreeSet<>();
 
+
+    //Uste so ne proba za voa :@
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.REMOVE})
+    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,
+            org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     @JoinTable(name = "user_chats",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "chat_id"))
@@ -60,11 +71,15 @@ public class User extends BaseEntity {
 
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = {CascadeType.ALL, CascadeType.REMOVE})
+    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,
+            org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     public Set<Activity> activities = new TreeSet<>();
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = {CascadeType.ALL, CascadeType.REMOVE})
+    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,
+            org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     public Set<ChatItem> chatItems = new TreeSet<>();
 
 

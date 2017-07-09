@@ -40,7 +40,11 @@ public class ChatItemServiceImpl implements ChatItemService {
 
     @Override
     public void deleteChatItem(Long chatItemId) {
-        chatItemRepositoryCrud.delete(chatItemId);
+        ChatItem chatItem= chatItemRepositoryCrud.findOne(chatItemId);
+        Chat chat = chatRepositoryCrud.findOne(chatItem.chat.id);
+        chat.chatItems.remove(chatItem);
+        chatRepositoryCrud.save(chat);
+        chatItemRepositoryCrud.delete(chatItem);
     }
 
     @Override

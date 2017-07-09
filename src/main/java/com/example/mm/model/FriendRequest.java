@@ -11,12 +11,12 @@ import javax.persistence.*;
 @Table(name = "friendRequests")
 public class FriendRequest extends BaseEntity {
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userSender_id")
     public User sender;
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userReceiver_id")
     public User receiver;
