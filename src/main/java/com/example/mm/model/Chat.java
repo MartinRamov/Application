@@ -1,8 +1,13 @@
 package com.example.mm.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -13,13 +18,12 @@ import java.util.TreeSet;
 @Table(name = "chats")
 public class Chat extends BaseEntity {
 
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "chats")
-    public Set<User> users = new TreeSet<User>();
+    public Set<User> users = new TreeSet<>();
 
-    
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "chat")
-    public Set<ChatItem> chatItems = new TreeSet<ChatItem>();
-
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "chat", cascade = CascadeType.ALL)
+    public Set<ChatItem> chatItems = new TreeSet<>();
 
 }

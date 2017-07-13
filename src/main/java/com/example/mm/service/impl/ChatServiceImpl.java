@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,6 +61,13 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public void deleteChat(Long chatId) {
+        Chat chat = chatRepositoryCrud.findOne(chatId);
+        for(ChatItem chatItem : chat.chatItems) {
+            chatItemRepositoryCrud.delete(chatItem.id);
+            System.out.println("\nAAAAAA\n");
+        }
+        chat.chatItems.clear();
+        chat = chatRepositoryCrud.save(chat);
         chatRepositoryCrud.delete(chatId);
     }
 

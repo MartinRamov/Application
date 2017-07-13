@@ -67,15 +67,13 @@ public class MeetingServiceImpl implements MeetingService {
     @Override
     public Set<Meeting> getMeetingsForUser(Long user_id) {
         User u = userRepositoryCrud.findOne(user_id);
-        Set<Meeting> meetings = u.meetings;
-        return meetings;
+        return u.meetings;
     }
 
     @Override
     public Set<User> getUsersInMeeting(Long meeting_id) {
         Meeting meeting = meetingRepositoryCrud.findOne(meeting_id);
-        Set<User> users = meeting.users;
-        return users;
+        return meeting.users;
     }
 
     @Override
@@ -120,6 +118,6 @@ public class MeetingServiceImpl implements MeetingService {
     @Override
     public Integer getNumberOfUsersInMeeting(Long meeting_id) {
         Meeting meeting = meetingRepositoryCrud.findOne(meeting_id);
-        return meeting.users != null ? meeting.users.size() : 1000;
+        return meeting.users.size();
     }
 }

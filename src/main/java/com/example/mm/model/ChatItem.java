@@ -1,6 +1,8 @@
 package com.example.mm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -11,7 +13,6 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "chatItems")
 public class ChatItem extends BaseEntity {
-
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
@@ -24,7 +25,7 @@ public class ChatItem extends BaseEntity {
     public User user;
 
     @Column
-    public LocalTime timeSended;
+    public LocalTime timeSent;
 
     @Column
     public String message;

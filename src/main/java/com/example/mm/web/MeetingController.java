@@ -82,8 +82,8 @@ public class MeetingController {
     }
 
     //Tested
-    @RequestMapping(value = "/removeUser/{meetingId}/{userId}", method = RequestMethod.PUT)
-    public void removeUserToMeeting(@PathVariable Long meetingId, @PathVariable Long userId) {
+    @RequestMapping(value = "/removeUser/{meetingId}/{userId}", method = RequestMethod.DELETE)
+    public void removeUserFromMeeting(@PathVariable Long meetingId, @PathVariable Long userId) {
         meetingService.removeUserFromMeeting(userId, meetingId);
     }
 

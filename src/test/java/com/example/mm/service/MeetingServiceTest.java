@@ -62,7 +62,7 @@ public class MeetingServiceTest {
         System.out.println(meetingService.getMeetingsForUser(user.id));
         System.out.println(meetingService.getUsersInMeeting(meeting.id));
         meetingService.removeUserFromMeeting(user.id, meeting.id);
-        count = meetingService.getNumberOfUsersInMeeting(meeting.id);
-        Assert.assertEquals("User is not removed from meeting", new Integer(0), count);
+        meeting = meetingService.getMeeting(meeting.id);
+        Assert.assertNull("Empty meeting is not deleted", meeting);
     }
 }

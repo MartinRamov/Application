@@ -1,10 +1,13 @@
 package com.example.mm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.*;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -34,8 +37,7 @@ public class User extends BaseEntity {
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
-    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,
-            org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
+    @Cascade(value = {org.hibernate.annotations.CascadeType.DELETE})
     @JoinTable(name = "user_friends",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id"))
@@ -43,8 +45,7 @@ public class User extends BaseEntity {
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
-    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,
-            org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
+    @Cascade(value = {org.hibernate.annotations.CascadeType.DELETE})
     @JoinTable(name = "user_friends",
             joinColumns = @JoinColumn(name = "friend_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
