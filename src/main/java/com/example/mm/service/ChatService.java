@@ -27,7 +27,7 @@ public interface ChatService {
 
     void addChatItem(Long chatId, Long chatItemId);
 
-
+    void cleanChat(Long chat_id);
 
 
 }

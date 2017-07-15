@@ -101,4 +101,25 @@ public class ChatServiceImpl implements ChatService {
         chatRepositoryCrud.save(c);
 
     }
+
+    @Override
+    public void cleanChat(Long chat_id) {
+        Chat chat=chatRepositoryCrud.findOne(chat_id);
+        for(ChatItem chatItem: chat.chatItems)
+        {
+            chat.chatItems.remove(chatItem);
+            chatItemRepositoryCrud.delete(chatItem);
+            chatRepositoryCrud.save(chat);
+        }
+
+        for(User u:chat.users){
+            u.chats.remove(chat);
+            chat.users.remove(u);
+            chatRepositoryCrud.save(chat);
+            userRepositoryCrud.save(u);
+        }
+
+        chatRepositoryCrud.delete(chat);
+
+    }
 }

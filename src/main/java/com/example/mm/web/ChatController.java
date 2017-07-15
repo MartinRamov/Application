@@ -40,7 +40,9 @@ public class ChatController {
     //Doesn't work
     @RequestMapping(value = "/delete/{chatId}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long chatId){
-        chatService.deleteChat(chatId);
+
+
+        chatService.cleanChat(chatId);
     }
 
     //Tested:OK
