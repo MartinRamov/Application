@@ -9,6 +9,7 @@ import com.example.mm.persistence.MeetingRepositoryCrud;
 import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.ChatService;
 import com.example.mm.service.MeetingService;
+import com.example.mm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,7 +100,7 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public void decline(Long user_id, Long meeting_id) {
-
+        this.removeUserFromMeeting(user_id, meeting_id);
     }
 
     @Override
