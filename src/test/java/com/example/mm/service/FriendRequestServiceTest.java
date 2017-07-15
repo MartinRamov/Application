@@ -31,8 +31,8 @@ public class FriendRequestServiceTest {
 
     @Before
     public void createUsers() {
-        u1 = userService.createUser("sender", "sender", "sender", "sender");
-        u2 = userService.createUser("reciever", "reciever", "reciever", "reciever");
+        u1 = userService.createUser("sender", "sender", "sender", "sender", "sender");
+        u2 = userService.createUser("reciever", "reciever", "reciever", "reciever","sender");
     }
 
 

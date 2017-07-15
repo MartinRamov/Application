@@ -8,6 +8,7 @@ import com.example.mm.persistence.FriendRequestRepositoryCrud;
 import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,19 +26,23 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private FriendRequestRepositoryCrud friendRequestRepositoryCrud;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
-    public User createUser(String firstname, String lastname, String email, String password) {
+    public User createUser(String firstname, String lastname, String email, String username, String password) {
         User user = new User();
         user.firstName = firstname;
         user.lastName = lastname;
         user.email = email;
-        user.password = password;
+        user.username = username;
+        user.password = passwordEncoder.encode(password);
         user = userRepositoryCrud.save(user);
         return user;
     }
 
     @Override
-    public User updateUser(Long id, String firstname, String lastname, String email, String password) {
+    public User updateUser(Long id, String firstname, String lastname, String email, String username, String password) {
         User user = userRepositoryCrud.findOne(id);
         if(id!=null)
         user.id = id;
@@ -47,8 +52,10 @@ public class UserServiceImpl implements UserService {
         user.lastName = lastname;
         if(email!=null)
         user.email = email;
+        if(username!=null)
+            user.username = username;
         if(password!=null)
-        user.password = password;
+        user.password = passwordEncoder.encode(password);
         return userRepositoryCrud.save(user);
     }
 

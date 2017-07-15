@@ -35,16 +35,16 @@ public class UserController {
     //Tested
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public User createUser(@RequestParam String firstName, @RequestParam String lastName,
-                           @RequestParam String email, @RequestParam String password) {
-        return userService.createUser(firstName, lastName, email, password);
+                           @RequestParam String email, @RequestParam String username, @RequestParam String password) {
+        return userService.createUser(firstName, lastName, email, username, password);
     }
 
     //Tested
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public User updateUser(@RequestParam String firstName, @RequestParam String lastName,
-                           @RequestParam String email, @RequestParam String password,
+                           @RequestParam String email, @RequestParam String username, @RequestParam String password,
                            @PathVariable Long id) {
-        return userService.updateUser(id, firstName, lastName, email, password);
+        return userService.updateUser(id, firstName, lastName, email, username, password);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
