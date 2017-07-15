@@ -61,7 +61,7 @@ public class User extends BaseEntity {
     public Set<Meeting> meetings = new TreeSet<>();
 
 
-    //Uste so ne proba za voa :@
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.REMOVE})
     @Cascade(value = {org.hibernate.annotations.CascadeType.ALL,

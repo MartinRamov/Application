@@ -37,6 +37,10 @@ public class Meeting extends BaseEntity {
     @ManyToMany(mappedBy = "meetings", fetch = FetchType.EAGER)
     public Set<User> users = new TreeSet<>();
 
+    @OneToOne
+    @JoinColumn(name = "chat_id")
+    public Chat chat;
+
     @Override
     public String toString() {
         return String.format("%d, %s %s, (%s - %s)", id, title, date, timeFrom, timeTo);

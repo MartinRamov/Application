@@ -1,10 +1,13 @@
 package com.example.mm.service.impl;
 
+import com.example.mm.model.Chat;
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
 import com.example.mm.model.categories.ActivityCategory;
+import com.example.mm.persistence.ChatRepositoryCrud;
 import com.example.mm.persistence.MeetingRepositoryCrud;
 import com.example.mm.persistence.UserRepositoryCrud;
+import com.example.mm.service.ChatService;
 import com.example.mm.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,9 @@ public class MeetingServiceImpl implements MeetingService {
     @Autowired
     private UserRepositoryCrud userRepositoryCrud;
 
+    @Autowired
+    private ChatService chatService;
+
     @Override
     public Meeting createMeeting(String title, ActivityCategory ac, LocalDate date,
                                  LocalTime timeFrom, LocalTime timeTo) {
@@ -34,6 +40,8 @@ public class MeetingServiceImpl implements MeetingService {
         meeting.date = date;
         meeting.timeFrom = timeFrom;
         meeting.timeTo = timeTo;
+        Chat chat=chatService.createChat();
+        meeting.chat=chat;
         return meetingRepositoryCrud.save(meeting);
     }
 
@@ -78,12 +86,15 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public Set<User> getActiveUsersInMeeting(Long meeting_id) {
-        return null;
+        Meeting meeting=meetingRepositoryCrud.findOne(meeting_id);
+        return meeting.chat.users;
     }
 
     @Override
     public void accept(Long user_id, Long meeting_id) {
-
+        Meeting meeting=meetingRepositoryCrud.findOne(meeting_id);
+        Chat chat=meeting.chat;
+        chatService.addUser(chat.id,user_id);
     }
 
     @Override
