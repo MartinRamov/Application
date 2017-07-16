@@ -88,4 +88,9 @@ public class UserController {
         userService.deleteFriend(id1, id2);
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public boolean login(@RequestParam String email,@RequestParam String password){
+        return userService.login(email,password);
+    }
+
 }

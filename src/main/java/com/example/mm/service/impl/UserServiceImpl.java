@@ -143,4 +143,16 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return (List<User>) userRepositoryCrud.findAll();
     }
+
+    @Override
+    public boolean login(String email, String password) {
+       User user=userRepositoryCrud.findUserByEmail(email);
+        System.out.println(user.password);
+
+        String pass= passwordEncoder.encode(password);
+        System.out.print(pass);
+        if(pass.equals(user.password))
+            return true;
+        return false;
+    }
 }

@@ -32,4 +32,6 @@ public interface UserService {
     void deleteFriend(Long id1, Long id2);
 
     List<User> getAllUsers();
+
+    boolean login(String email, String password);
 }
