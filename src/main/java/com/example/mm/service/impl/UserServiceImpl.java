@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public User createUser(String firstname, String lastname, String email , String password) {
+    public User createUser(String firstname, String lastname, String email, String password) {
         User user = new User();
         user.firstName = firstname;
         user.lastName = lastname;
@@ -43,16 +43,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(Long id, String firstname, String lastname, String email, String password) {
         User user = userRepositoryCrud.findOne(id);
-        if(id!=null)
-        user.id = id;
-        if(firstname!=null)
-        user.firstName = firstname;
-        if(lastname!=null)
-        user.lastName = lastname;
-        if(email!=null)
-        user.email = email;
-        if(password!=null)
-        user.password = passwordEncoder.encode(password);
+        if (id != null)
+            user.id = id;
+        if (firstname != null)
+            user.firstName = firstname;
+        if (lastname != null)
+            user.lastName = lastname;
+        if (email != null)
+            user.email = email;
+        if (password != null)
+            user.password = passwordEncoder.encode(password);
         return userRepositoryCrud.save(user);
     }
 
@@ -71,10 +71,10 @@ public class UserServiceImpl implements UserService {
         user.activities.clear();
         user.chatItems.clear();
         user.notifications.clear();
-        for(FriendRequest f : user.sentRequests) {
+        for (FriendRequest f : user.sentRequests) {
             friendRequestRepositoryCrud.delete(f.id);
         }
-        for(FriendRequest f : user.receivedRequests) {
+        for (FriendRequest f : user.receivedRequests) {
             friendRequestRepositoryCrud.delete(f.id);
         }
         user.sentRequests.clear();
@@ -146,13 +146,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean login(String email, String password) {
-       User user=userRepositoryCrud.findUserByEmail(email);
-        System.out.println(user.password);
-
-        String pass= passwordEncoder.encode(password);
-        System.out.print(pass);
-        if(pass.equals(user.password))
-            return true;
-        return false;
+        User user = userRepositoryCrud.findUserByEmail(email);
+        return passwordEncoder.matches(password, user.password);
     }
 }
