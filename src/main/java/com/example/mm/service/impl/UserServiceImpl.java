@@ -36,23 +36,52 @@ public class UserServiceImpl implements UserService {
         user.lastName = lastname;
         user.email = email;
         user.password = passwordEncoder.encode(password);
-        user = userRepositoryCrud.save(user);
-        return user;
+        return userRepositoryCrud.save(user);
     }
 
     @Override
     public User updateUser(Long id, String firstname, String lastname, String email, String password) {
         User user = userRepositoryCrud.findOne(id);
-        if (id != null)
-            user.id = id;
-        if (firstname != null)
+        if(firstname != null) {
             user.firstName = firstname;
-        if (lastname != null)
+        }
+        if(lastname != null) {
             user.lastName = lastname;
-        if (email != null)
-            user.email = email;
-        if (password != null)
+        }
+        if(email != null) {
+            user.email= email;
+        }
+        if(password != null) {
             user.password = passwordEncoder.encode(password);
+        }
+        return userRepositoryCrud.save(user);
+    }
+
+    @Override
+    public User updateFirstName(Long id, String firstName) {
+        User user = userRepositoryCrud.findOne(id);
+        user.firstName = firstName;
+        return userRepositoryCrud.save(user);
+    }
+
+    @Override
+    public User updateLastName(Long id, String lastName) {
+        User user = userRepositoryCrud.findOne(id);
+        user.lastName = lastName;
+        return userRepositoryCrud.save(user);
+    }
+
+    @Override
+    public User updateEmail(Long id, String email) {
+        User user = userRepositoryCrud.findOne(id);
+        user.email = email;
+        return userRepositoryCrud.save(user);
+    }
+
+    @Override
+    public User updatePassword(Long id, String password) {
+        User user = userRepositoryCrud.findOne(id);
+        user.password = passwordEncoder.encode(password);
         return userRepositoryCrud.save(user);
     }
 
@@ -147,7 +176,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean login(String email, String password) {
         User user = userRepositoryCrud.findUserByEmail(email);
-        return passwordEncoder.matches(password, user.password);
+        return user != null && passwordEncoder.matches(password, user.password);
     }
 
     @Override

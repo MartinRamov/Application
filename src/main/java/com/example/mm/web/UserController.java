@@ -1,10 +1,12 @@
 package com.example.mm.web;
 
+import com.example.mm.exceptions.EmailAlreadyTakenException;
 import com.example.mm.model.Activity;
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
 import com.example.mm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,15 +38,41 @@ public class UserController {
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public User createUser(@RequestParam String firstName, @RequestParam String lastName,
                            @RequestParam String email, @RequestParam String password) {
+        List<User> allUsers = userService.getAllUsers();
+        allUsers.forEach(item -> {
+            if(item.email.equals(email)) {
+                throw new EmailAlreadyTakenException(email);
+            }
+        });
         return userService.createUser(firstName, lastName, email, password);
     }
 
     //Tested
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public User updateUser(@RequestParam String firstName, @RequestParam String lastName,
-                           @RequestParam String email, @RequestParam String password,
-                           @PathVariable Long id) {
-        return userService.updateUser(id, firstName, lastName, email, password);
+//    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+//    public User updateUser(@RequestParam String firstName, @RequestParam String lastName,
+//                           @RequestParam String email, @RequestParam String password,
+//                           @PathVariable Long id) {
+//        return userService.updateUser(id, firstName, lastName, email, password);
+//    }
+
+    @RequestMapping(value = "/updateFirstName/{id}", method = RequestMethod.PUT)
+    public User updateFirstName(@RequestParam String firstName, @PathVariable Long id) {
+        return userService.updateFirstName(id, firstName);
+    }
+
+    @RequestMapping(value = "/updateLastName/{id}", method = RequestMethod.PUT)
+    public User updateLastName(@RequestParam String lastName, @PathVariable Long id) {
+        return userService.updateLastName(id, lastName);
+    }
+
+    @RequestMapping(value = "/updateEmail/{id}", method = RequestMethod.PUT)
+    public User updateEmail(@RequestParam String email, @PathVariable Long id) {
+        return userService.updateEmail(id, email);
+    }
+
+    @RequestMapping(value = "/updatePassword/{id}", method = RequestMethod.PUT)
+    public User updatePassword(@RequestParam String password, @PathVariable Long id) {
+        return userService.updatePassword(id, password);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
@@ -91,7 +119,6 @@ public class UserController {
     //Tested
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public boolean login(@RequestParam String email,@RequestParam String password){
-        System.out.print(userService.login(email,password));
         return userService.login(email,password);
     }
 
