@@ -34,4 +34,6 @@ public interface UserService {
     List<User> getAllUsers();
 
     boolean login(String email, String password);
+
+    User getUserByEmail(String email);
 }

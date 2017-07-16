@@ -149,4 +149,9 @@ public class UserServiceImpl implements UserService {
         User user = userRepositoryCrud.findUserByEmail(email);
         return passwordEncoder.matches(password, user.password);
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepositoryCrud.findUserByEmail(email);
+    }
 }

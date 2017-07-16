@@ -91,7 +91,13 @@ public class UserController {
     //Tested
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public boolean login(@RequestParam String email,@RequestParam String password){
+        System.out.print(userService.login(email,password));
         return userService.login(email,password);
+    }
+
+    @RequestMapping(value = "/getUserByEmail", method = RequestMethod.POST)
+    public User getUserByEmail(@RequestParam String email){
+        return userService.getUserByEmail(email);
     }
 
 }
