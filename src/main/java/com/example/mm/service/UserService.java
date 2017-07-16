@@ -11,9 +11,9 @@ import java.util.Set;
  * Created by Win8.1 on 30.06.2017.
  */
 public interface UserService {
-    User createUser(String firstname, String lastname, String email, String username, String password);
+    User createUser(String firstname, String lastname, String email, String password);
 
-    User updateUser(Long id, String firstname, String lastname, String email, String username, String password);
+    User updateUser(Long id, String firstname, String lastname, String email, String password);
 
     User getUserById(Long id);
 

@@ -24,26 +24,26 @@ public class UserServiceTest {
 
     @Test
     public void createUser() {
-        User user = userService.createUser("MilaT", "Gjurova", "mail", "pass","sender");
+        User user = userService.createUser("MilaT", "Gjurova", "mail", "pass");
         Assert.assertNotNull("Ne e kreiran user", user);
 
     }
     @Test
     public void deleteUser(){
-        User user = userService.createUser("MilaT", "Gjurova", "mail", "pass","sender");
+        User user = userService.createUser("MilaT", "Gjurova", "mail", "pass");
         userService.deleteUser(user.id);
         Assert.assertNull("Ne e izbrisan userot", userService.getUserById(user.id));
     }
     @Test
     public void testTwoFunkForFriends(){
-        User user = userService.createUser("PrijatelPrv", "Gjurova", "mail", "pass","sender");
-        User user2=userService.createUser("Prijatel", "Prijatel", "mail", "pass","sender");
+        User user = userService.createUser("PrijatelPrv", "Gjurova", "mail", "pass");
+        User user2=userService.createUser("Prijatel", "Prijatel", "mail", "pass");
 
         userService.addFriend(user.id,user2.id);
         Assert.assertEquals("Ne e kreiran friend",true, userService.isFriend(user.id,user2.id));
 
         //Count friends test
-        User test = userService.createUser("a", "b", "a@a.com", "pas","sender");
+        User test = userService.createUser("a", "b", "a@a.com", "pas");
         Assert.assertEquals("Conunt frineds error", 0, userService.countFriends(test.id));
         Assert.assertEquals("Conunt frineds error", 1, userService.countFriends(user.id));
         Assert.assertEquals("Conunt frineds error", 1, userService.countFriends(user2.id));

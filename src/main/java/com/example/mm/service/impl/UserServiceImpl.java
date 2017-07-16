@@ -30,19 +30,18 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public User createUser(String firstname, String lastname, String email, String username, String password) {
+    public User createUser(String firstname, String lastname, String email , String password) {
         User user = new User();
         user.firstName = firstname;
         user.lastName = lastname;
         user.email = email;
-        user.username = username;
         user.password = passwordEncoder.encode(password);
         user = userRepositoryCrud.save(user);
         return user;
     }
 
     @Override
-    public User updateUser(Long id, String firstname, String lastname, String email, String username, String password) {
+    public User updateUser(Long id, String firstname, String lastname, String email, String password) {
         User user = userRepositoryCrud.findOne(id);
         if(id!=null)
         user.id = id;
@@ -52,8 +51,6 @@ public class UserServiceImpl implements UserService {
         user.lastName = lastname;
         if(email!=null)
         user.email = email;
-        if(username!=null)
-            user.username = username;
         if(password!=null)
         user.password = passwordEncoder.encode(password);
         return userRepositoryCrud.save(user);

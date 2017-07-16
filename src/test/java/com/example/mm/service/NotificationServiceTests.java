@@ -46,9 +46,9 @@ public class NotificationServiceTests {
     @Before
     public void before() {
 
-        user1 = userService.createUser("User1", "User1", "User1", "User1","sender");
-        user2 = userService.createUser("User2", "User2", "User2", "User2","sender");
-        user3 = userService.createUser("User3", "User3", "User3", "User3","sender");
+        user1 = userService.createUser("User1", "User1", "User1", "User1");
+        user2 = userService.createUser("User2", "User2", "User2", "User2");
+        user3 = userService.createUser("User3", "User3", "User3", "User3");
         fr = friendRequestService.createFriendRequest(user1.id, user2.id);
         meeting = meetingService.createMeeting("Meeting_Title",
                 ActivityCategory.SPORT, LocalDate.now(),
