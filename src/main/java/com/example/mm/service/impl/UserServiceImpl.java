@@ -35,23 +35,24 @@ public class UserServiceImpl implements UserService {
         user.firstName = firstname;
         user.lastName = lastname;
         user.email = email;
-        user.password = passwordEncoder.encode(password);
+        if (password != null)
+            user.password = passwordEncoder.encode(password);
         return userRepositoryCrud.save(user);
     }
 
     @Override
     public User updateUser(Long id, String firstname, String lastname, String email, String password) {
         User user = userRepositoryCrud.findOne(id);
-        if(firstname != null) {
+        if (firstname != null) {
             user.firstName = firstname;
         }
-        if(lastname != null) {
+        if (lastname != null) {
             user.lastName = lastname;
         }
-        if(email != null) {
-            user.email= email;
+        if (email != null) {
+            user.email = email;
         }
-        if(password != null) {
+        if (password != null) {
             user.password = passwordEncoder.encode(password);
         }
         return userRepositoryCrud.save(user);

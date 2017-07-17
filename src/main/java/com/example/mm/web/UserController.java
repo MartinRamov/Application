@@ -44,7 +44,7 @@ public class UserController {
                 throw new EmailAlreadyTakenException(email);
             }
         });
-        return userService.createUser(firstName, lastName, email, password);
+        return userService.createUser(firstName, lastName, email, !password.equals("")? password : null);
     }
 
     //Tested
