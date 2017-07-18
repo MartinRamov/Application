@@ -44,4 +44,6 @@ public interface UserService {
     boolean login(String email, String password);
 
     User getUserByEmail(String email);
+
+    List<User> getUserFriends(Long id);
 }

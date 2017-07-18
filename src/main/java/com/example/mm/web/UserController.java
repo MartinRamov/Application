@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -122,9 +123,15 @@ public class UserController {
         return userService.login(email,password);
     }
 
+    //Tested
     @RequestMapping(value = "/getUserByEmail", method = RequestMethod.POST)
     public User getUserByEmail(@RequestParam String email){
         return userService.getUserByEmail(email);
     }
 
+    //Tested
+    @RequestMapping(value = "/getFriends/{id}", method = RequestMethod.GET)
+    public List<User> getUserFriends(@PathVariable Long id) {
+        return userService.getUserFriends(id);
+    }
 }
