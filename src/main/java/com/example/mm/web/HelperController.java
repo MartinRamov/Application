@@ -13,7 +13,7 @@ public class HelperController {
 
     @RequestMapping(value = "/getTime", method = RequestMethod.GET)
     public String getServerTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(new Date());
     }
 }
