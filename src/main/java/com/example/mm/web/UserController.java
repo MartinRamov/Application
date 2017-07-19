@@ -134,4 +134,10 @@ public class UserController {
     public List<User> getUserFriends(@PathVariable Long id) {
         return userService.getUserFriends(id);
     }
+
+    //Tested
+    @RequestMapping(value = "/exists", method = RequestMethod.GET)
+    public boolean userExists(@RequestParam String email) {
+        return userService.getUserByEmail(email) != null;
+    }
 }
