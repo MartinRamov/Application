@@ -6,11 +6,9 @@ import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
 import com.example.mm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -141,5 +139,11 @@ public class UserController {
     @RequestMapping(value = "/exists", method = RequestMethod.GET)
     public boolean userExists(@RequestParam String email) {
         return userService.getUserByEmail(email) != null;
+    }
+
+    //Tested
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public List<User> searchUsers(@RequestParam String keyword) {
+        return userService.searchUsers(keyword);
     }
 }

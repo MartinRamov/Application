@@ -1,7 +1,11 @@
 package com.example.mm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.annotations.*;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
@@ -18,11 +22,21 @@ import java.util.TreeSet;
  */
 @Entity
 @Table(name = "users")
+@Indexed
+@AnalyzerDef(name = "userAnalyzer",
+        tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+        filters = {@TokenFilterDef(factory = LowerCaseFilterFactory.class)})
 public class User extends BaseEntity {
 
+    @Field(index = Index.YES, store = Store.NO, analyze = Analyze.YES)
+    @Analyzer(definition = "userAnalyzer")
+    @Boost(2f)
     @Column
     public String firstName;
 
+    @Field(index = Index.YES, store = Store.NO, analyze = Analyze.YES)
+    @Analyzer(definition = "userAnalyzer")
+    @Boost(2f)
     @Column
     public String lastName;
 
@@ -59,7 +73,6 @@ public class User extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "meeting_id"))
     public Set<Meeting> meetings = new TreeSet<>();
-
 
 
     @JsonIgnore

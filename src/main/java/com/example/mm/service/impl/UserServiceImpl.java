@@ -5,6 +5,7 @@ import com.example.mm.model.FriendRequest;
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
 import com.example.mm.persistence.FriendRequestRepositoryCrud;
+import com.example.mm.persistence.SearchRepository;
 import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private SearchRepository searchRepository;
 
     @Override
     public User createUser(String firstname, String lastname, String email, String password) {
@@ -193,5 +197,10 @@ public class UserServiceImpl implements UserService {
         List<User> results = new ArrayList<>();
         results.addAll(user.friends);
         return results;
+    }
+
+    @Override
+    public List<User> searchUsers(String query) {
+        return searchRepository.searchPhrase(User.class, query, "firstName", "lastName");
     }
 }

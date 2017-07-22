@@ -46,4 +46,6 @@ public interface UserService {
     User getUserByEmail(String email);
 
     List<User> getUserFriends(Long id);
+
+    List<User> searchUsers(String query);
 }
