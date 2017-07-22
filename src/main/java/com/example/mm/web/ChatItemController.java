@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 /**
- * Created by mila.gjurova on 7/5/2017.
+ * Chat item Controller
  */
 @RestController
 @RequestMapping(value = "/chatItem", produces = "application/json")

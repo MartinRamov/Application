@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 /**
- * Created by mila.gjurova on 7/6/2017.
+ * Notification Controller
  */
 @RestController
 @RequestMapping(value = "/notifications", produces = "application/json")

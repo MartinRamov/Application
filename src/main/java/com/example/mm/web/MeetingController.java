@@ -12,7 +12,7 @@ import java.time.LocalTime;
 import java.util.Set;
 
 /**
- * Created by mila.gjurova on 7/6/2017.
+ * Meeting Controller
  */
 @RestController
 @RequestMapping(value = "/meetings", produces = "application/json")

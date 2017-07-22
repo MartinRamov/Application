@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 /**
- * Created by mila.gjurova on 7/6/2017.
+ * Friend Request Controller
  */
 @RestController
 @RequestMapping(value = "/friendRequest", produces = "application/json")

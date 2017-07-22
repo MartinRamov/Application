@@ -4,6 +4,8 @@ import com.example.mm.model.Activity;
 import com.example.mm.model.categories.ActivityCategory;
 import com.example.mm.model.categories.ActivityTime;
 import com.example.mm.service.ActivityService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +14,14 @@ import java.time.LocalTime;
 import java.util.Set;
 
 /**
- * Created by mila.gjurova on 7/5/2017.
+ * Activity Controller
  */
 //Tested
 @RestController
 @RequestMapping(value = "/activities", produces = "application/json")
 public class ActivityController {
+
+    private static Logger logger = LoggerFactory.getLogger(ActivityController.class);
 
     @Autowired
     ActivityService activityService;
@@ -40,20 +44,34 @@ public class ActivityController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Activity createActivity(@RequestParam Long user_id, @RequestParam String title, @RequestParam ActivityCategory ac,
-                                   @RequestParam ActivityTime at, @RequestParam LocalDate date,
-                                   @RequestParam LocalTime timeFrom, @RequestParam LocalTime timeTo) {
-        return activityService.createActivity(user_id, title, ac, at, date, timeFrom, timeTo);
+                                   @RequestParam ActivityTime at, @RequestParam String date,
+                                   @RequestParam String timeFrom, @RequestParam String timeTo) {
+        logger.info("Creating activity {} {} {}", date, timeFrom, timeTo);
+        String[] dateArray = date.split("-");
+        LocalDate dateParsed = LocalDate.of(Integer.parseInt(dateArray[0]), Integer.parseInt(dateArray[1]) ,Integer.parseInt(dateArray[2]));
+        String[] timeArrayF = timeFrom.split(":");
+        LocalTime from = LocalTime.of(Integer.parseInt(timeArrayF[0]), Integer.parseInt(timeArrayF[1]));
+        String[] timeArrayT = timeTo.split(":");
+        LocalTime to = LocalTime.of(Integer.parseInt(timeArrayT[0]), Integer.parseInt(timeArrayT[1]));
+        return activityService.createActivity(user_id, title, ac, at, dateParsed, from, to);
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public Activity updateActivity(@RequestParam Long user_id, @PathVariable Long id, @RequestParam ActivityCategory ac,
-                                   @RequestParam ActivityTime at, @RequestParam LocalDate date,
-                                   @RequestParam LocalTime timeFrom, @RequestParam LocalTime timeTo, @RequestParam String title) {
-        return activityService.updateActivity(user_id, id, title, ac, at, date, timeFrom, timeTo);
+                                   @RequestParam ActivityTime at, @RequestParam String date,
+                                   @RequestParam String timeFrom, @RequestParam String timeTo, @RequestParam String title) {
+        logger.info("Updating activity {} {} {}", date, timeFrom, timeTo);
+        String[] dateArray = date.split("-");
+        LocalDate dateParsed = LocalDate.of(Integer.parseInt(dateArray[0]), Integer.parseInt(dateArray[1]) ,Integer.parseInt(dateArray[2]));
+        String[] timeArrayF = timeFrom.split(":");
+        LocalTime from = LocalTime.of(Integer.parseInt(timeArrayF[0]), Integer.parseInt(timeArrayF[1]));
+        String[] timeArrayT = timeTo.split(":");
+        LocalTime to = LocalTime.of(Integer.parseInt(timeArrayT[0]), Integer.parseInt(timeArrayT[1]));
+        return activityService.updateActivity(user_id, id, title, ac, at, dateParsed, from, to);
     }
 
     @RequestMapping(value = "/getNumActivities/{userId}", method = RequestMethod.GET)
-    public Integer getNumberOfActivitiesForUser(@PathVariable Long userId){
+    public Integer getNumberOfActivitiesForUser(@PathVariable Long userId) {
         return activityService.getNumberOfActivitiesForUser(userId);
     }
 

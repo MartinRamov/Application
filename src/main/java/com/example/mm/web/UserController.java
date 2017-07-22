@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +27,7 @@ public class UserController {
     //Tested
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<User> getAllUsers() {
+        System.out.println(ZonedDateTime.now());
         return userService.getAllUsers();
     }
 
