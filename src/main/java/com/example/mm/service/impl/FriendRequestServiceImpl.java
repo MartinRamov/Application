@@ -36,11 +36,11 @@ public class FriendRequestServiceImpl implements FriendRequestService {
         FriendRequest fr = new FriendRequest();
         fr.sender = sender;
         fr.receiver = receiver;
+        fr = friendRequestRepositoryCrud.save(fr);
         sender.sentRequests.add(fr);
         receiver.receivedRequests.add(fr);
         userRepositoryCrud.save(sender);
         userRepositoryCrud.save(receiver);
-        fr = friendRequestRepositoryCrud.save(fr);
         return fr;
     }
 

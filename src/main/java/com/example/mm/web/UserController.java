@@ -2,9 +2,12 @@ package com.example.mm.web;
 
 import com.example.mm.exceptions.EmailAlreadyTakenException;
 import com.example.mm.model.Activity;
+import com.example.mm.model.Friend;
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
 import com.example.mm.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +21,8 @@ import java.util.Set;
 @RestController
 @RequestMapping(value = "/users", produces = "application/json")
 public class UserController {
+
+    private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -113,8 +118,13 @@ public class UserController {
 
     //Tested
     @RequestMapping(value = "/unfriend/{id1}/{id2}", method = RequestMethod.DELETE)
-    public void unfriend(@PathVariable Long id1, @PathVariable Long id2) {
+    public boolean unfriend(@PathVariable Long id1, @PathVariable Long id2) {
+        logger.info("Into method");
         userService.deleteFriend(id1, id2);
+        logger.info("Remove from friends {} -> {}", id1, id2);
+        boolean result = !userService.isFriend(id1, id2);
+        logger.info("Friend removed {}", result);
+        return result;
     }
 
     //Tested
@@ -131,7 +141,7 @@ public class UserController {
 
     //Tested
     @RequestMapping(value = "/getFriends/{id}", method = RequestMethod.GET)
-    public List<User> getUserFriends(@PathVariable Long id) {
+    public List<Friend> getUserFriends(@PathVariable Long id) {
         return userService.getUserFriends(id);
     }
 

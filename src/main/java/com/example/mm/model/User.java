@@ -46,7 +46,6 @@ public class User extends BaseEntity {
     @Column
     public String password;
 
-
     //@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
 
     @JsonIgnore

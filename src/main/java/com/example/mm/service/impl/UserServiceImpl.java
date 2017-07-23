@@ -1,9 +1,6 @@
 package com.example.mm.service.impl;
 
-import com.example.mm.model.Activity;
-import com.example.mm.model.FriendRequest;
-import com.example.mm.model.Meeting;
-import com.example.mm.model.User;
+import com.example.mm.model.*;
 import com.example.mm.persistence.FriendRequestRepositoryCrud;
 import com.example.mm.persistence.SearchRepository;
 import com.example.mm.persistence.UserRepositoryCrud;
@@ -192,10 +189,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserFriends(Long id) {
+    public List<Friend> getUserFriends(Long id) {
         User user = userRepositoryCrud.findOne(id);
-        List<User> results = new ArrayList<>();
-        results.addAll(user.friends);
+        List<Friend> results = new ArrayList<>();
+        user.friends.forEach(item -> {
+            Friend friend = new Friend(item.id, item.firstName, item.lastName, item.email);
+            results.add(friend);
+        });
         return results;
     }
 

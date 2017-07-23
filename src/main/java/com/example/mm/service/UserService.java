@@ -1,6 +1,7 @@
 package com.example.mm.service;
 
 import com.example.mm.model.Activity;
+import com.example.mm.model.Friend;
 import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
 
@@ -45,7 +46,7 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    List<User> getUserFriends(Long id);
+    List<Friend> getUserFriends(Long id);
 
     List<User> searchUsers(String query);
 }
