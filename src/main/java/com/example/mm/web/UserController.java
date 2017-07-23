@@ -142,7 +142,7 @@ public class UserController {
     }
 
     //Tested
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public List<User> searchUsers(@RequestParam String keyword) {
         return userService.searchUsers(keyword);
     }
