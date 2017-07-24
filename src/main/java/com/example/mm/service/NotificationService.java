@@ -1,5 +1,7 @@
 package com.example.mm.service;
 
+import com.example.mm.model.FriendRequest;
+import com.example.mm.model.Meeting;
 import com.example.mm.model.Notification;
 
 import java.util.Set;
@@ -11,7 +13,7 @@ public interface NotificationService {
 
     Notification createNotificationForFriendship(Long friendRequestId);
 
-    Set<Notification> createNotificationForMeeting(Long meetingId);
+    Notification createNotificationForMeeting(Long meetingId,Long userId);
 
     Set<Notification> getAll(Long recieverId);
 
@@ -24,5 +26,10 @@ public interface NotificationService {
     Set<Notification> getMeetings(Long recieverId);
 
     Notification getNotification(Long notificationId);
+
+    void deleteNotificationForFriendship(FriendRequest friendRequest);
+
+    void deleteNotificationForMeeting(Meeting meeting, Long userId);
+
 
 }

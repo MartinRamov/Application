@@ -6,6 +6,7 @@ import com.example.mm.persistence.FriendRequestRepositoryCrud;
 import com.example.mm.persistence.NotificationRepositoryCrud;
 import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.FriendRequestService;
+import com.example.mm.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,9 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     @Autowired
     private NotificationRepositoryCrud notificationRepositoryCrud;
 
+    @Autowired
+    private NotificationService notificationService;
+
 
     @Override
     public FriendRequest createFriendRequest(Long userSenderId, Long userRecieverId) {
@@ -41,6 +45,7 @@ public class FriendRequestServiceImpl implements FriendRequestService {
         receiver.receivedRequests.add(fr);
         userRepositoryCrud.save(sender);
         userRepositoryCrud.save(receiver);
+        notificationService.createNotificationForFriendship(fr.id);
         return fr;
     }
 
@@ -76,6 +81,7 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     @Override
     public void deleteFriendRequest(Long friendRequestId) {
         FriendRequest friendRequest = friendRequestRepositoryCrud.findOne(friendRequestId);
+        notificationService.deleteNotificationForFriendship(friendRequest);
         friendRequest.sender = null;
         friendRequest.receiver = null;
         friendRequest = friendRequestRepositoryCrud.save(friendRequest);
@@ -85,18 +91,17 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     @Override
     public FriendRequest acceptFriendRequest(Long friendRequestId) {
         FriendRequest friendRequest = friendRequestRepositoryCrud.findOne(friendRequestId);
+        notificationService.deleteNotificationForFriendship(friendRequest);
         User sender = userRepositoryCrud.findOne(friendRequest.sender.id);
         User receiver = userRepositoryCrud.findOne(friendRequest.receiver.id);
         sender.friends.add(receiver);
-
         userRepositoryCrud.save(sender);
-
         friendRequestRepositoryCrud.delete(friendRequestId);
         return friendRequest;
     }
 
     @Override
     public void declineFriendRequest(Long friendRequestId) {
-        friendRequestRepositoryCrud.delete(friendRequestId);
+        deleteFriendRequest(friendRequestId);
     }
 }

@@ -3,10 +3,7 @@ package com.example.mm.web;
 import com.example.mm.model.Notification;
 import com.example.mm.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -26,8 +23,8 @@ public class NotificationController {
     }
 
     @RequestMapping(value = "/createForMeeting/{meetingId}", method = RequestMethod.POST)
-    public Set<Notification> createNotificationForMeeting(@PathVariable Long meetingId) {
-        return notificationService.createNotificationForMeeting(meetingId);
+    public Notification createNotificationForMeeting(@PathVariable Long meetingId, @RequestParam Long userId) {
+        return notificationService.createNotificationForMeeting(meetingId, userId);
     }
 
 
