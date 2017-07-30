@@ -64,13 +64,13 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     }
 
     @Override
-    public Set<FriendRequest> getReceivedRequests(Long recieverId) {
+    public Set<FriendRequest> getReceivedRequests(Long receiverId) {
         Set<FriendRequest> set = new HashSet<FriendRequest>();
         Iterable<FriendRequest> all = friendRequestRepositoryCrud.findAll();
         Iterator friendRequests = all.iterator();
         while (friendRequests.hasNext()) {
             FriendRequest fr = (FriendRequest) friendRequests.next();
-            if (fr.receiver.id == recieverId) {
+            if (fr.receiver.id.equals(receiverId)) {
                 set.add(fr);
             }
 

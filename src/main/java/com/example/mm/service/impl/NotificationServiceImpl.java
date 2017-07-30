@@ -128,7 +128,6 @@ public class NotificationServiceImpl implements NotificationService {
                 receiversNotifications.add(notification);
 
         }
-
         return receiversNotifications;
     }
 
@@ -141,27 +140,23 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void deleteNotificationForFriendship(FriendRequest friendRequest) {
         Set<Notification> requests = getFriendRequests(friendRequest.receiver.id);
-        Long id = 0L;
         for (Notification r : requests) {
-            if (r.friendRequest.id == friendRequest.id) {
-                id = r.id;
+            if (r.friendRequest.id.equals(friendRequest.id)) {
+                notificationRepositoryCrud.delete(r.id);
                 break;
             }
         }
-        notificationRepositoryCrud.delete(id);
     }
 
     @Override
     public void deleteNotificationForMeeting(Meeting meeting, Long userId) {
         Set<Notification> meetings = getMeetings(userId);
-        Long id = 0L;
         for (Notification r : meetings) {
-            if (r.meeting.id == meeting.id) {
-                id = r.id;
+            if (r.meeting.id.equals(meeting.id)) {
+                notificationRepositoryCrud.delete(r.id);
                 break;
             }
         }
-        notificationRepositoryCrud.delete(id);
     }
 
 
