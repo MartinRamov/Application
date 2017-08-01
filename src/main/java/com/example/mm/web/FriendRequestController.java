@@ -6,6 +6,8 @@ import com.example.mm.service.FriendRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -62,4 +64,20 @@ public class FriendRequestController {
     }
 
     //The delete and decline doesn't work if they are connected with notification.. The same problem as user
+
+
+    @RequestMapping(value = "/getSent/{senderId}", method = RequestMethod.GET)
+    private Set<FriendRequest> getSentRequests(@PathVariable Long senderId) {
+        return friendRequestService.getSentRequests(senderId);
+    }
+
+    @RequestMapping(value = "/getUserReceivers/{senderId}", method = RequestMethod.GET)
+    private List<User> getUserReceiversForSender(@PathVariable Long senderId) {
+        Set<FriendRequest> requests = friendRequestService.getSentRequests(senderId);
+        List<User> results = new ArrayList<>();
+        for(FriendRequest fr : requests) {
+            results.add(fr.receiver);
+        }
+        return results;
+    }
 }

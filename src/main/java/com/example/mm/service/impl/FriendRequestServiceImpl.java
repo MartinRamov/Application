@@ -7,6 +7,7 @@ import com.example.mm.persistence.NotificationRepositoryCrud;
 import com.example.mm.persistence.UserRepositoryCrud;
 import com.example.mm.service.FriendRequestService;
 import com.example.mm.service.NotificationService;
+import com.example.mm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,9 @@ public class FriendRequestServiceImpl implements FriendRequestService {
 
     @Autowired
     private NotificationService notificationService;
+
+    @Autowired
+    private UserService userService;
 
 
     @Override
@@ -91,17 +95,21 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     @Override
     public FriendRequest acceptFriendRequest(Long friendRequestId) {
         FriendRequest friendRequest = friendRequestRepositoryCrud.findOne(friendRequestId);
-        notificationService.deleteNotificationForFriendship(friendRequest);
         User sender = userRepositoryCrud.findOne(friendRequest.sender.id);
         User receiver = userRepositoryCrud.findOne(friendRequest.receiver.id);
-        sender.friends.add(receiver);
-        userRepositoryCrud.save(sender);
-        friendRequestRepositoryCrud.delete(friendRequestId);
+        userService.addFriend(sender.id, receiver.id);
+        notificationService.deleteNotificationForFriendship(friendRequest);
         return friendRequest;
     }
 
     @Override
     public void declineFriendRequest(Long friendRequestId) {
         deleteFriendRequest(friendRequestId);
+    }
+
+    @Override
+    public Set<FriendRequest> getSentRequests(Long senderId) {
+        User sender = userRepositoryCrud.findOne(senderId);
+        return sender.sentRequests;
     }
 }

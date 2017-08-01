@@ -24,4 +24,6 @@ public interface FriendRequestService {
 
     void declineFriendRequest(Long friendRequestId);
 
+    Set<FriendRequest> getSentRequests(Long senderId);
+
 }
