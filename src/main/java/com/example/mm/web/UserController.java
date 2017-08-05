@@ -30,7 +30,6 @@ public class UserController {
     //Tested
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<User> getAllUsers() {
-        System.out.println(ZonedDateTime.now());
         return userService.getAllUsers();
     }
 

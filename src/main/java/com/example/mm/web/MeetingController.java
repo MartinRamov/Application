@@ -4,6 +4,8 @@ import com.example.mm.model.Meeting;
 import com.example.mm.model.User;
 import com.example.mm.model.categories.ActivityCategory;
 import com.example.mm.service.MeetingService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,21 +20,39 @@ import java.util.Set;
 @RequestMapping(value = "/meetings", produces = "application/json")
 public class MeetingController {
 
+    private static Logger logger = LoggerFactory.getLogger(MeetingController.class);
+
     @Autowired
     MeetingService meetingService;
 
     //Tested
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Meeting createMeeting(@RequestParam String title, @RequestParam ActivityCategory ac, @RequestParam LocalDate date, @RequestParam
-            LocalTime timeFrom, @RequestParam LocalTime timeTo) {
-        return meetingService.createMeeting(title, ac, date, timeFrom, timeTo);
+    public Meeting createMeeting(@RequestParam String title, @RequestParam ActivityCategory ac,
+                                 @RequestParam String date, @RequestParam String timeFrom,
+                                 @RequestParam String timeTo) {
+        logger.info("Creating meeting {} {} {}", date, timeFrom, timeTo);
+        String[] dateArray = date.split("-");
+        LocalDate dateParsed = LocalDate.of(Integer.parseInt(dateArray[0]), Integer.parseInt(dateArray[1]), Integer.parseInt(dateArray[2]));
+        String[] timeArrayF = timeFrom.split(":");
+        LocalTime from = LocalTime.of(Integer.parseInt(timeArrayF[0]), Integer.parseInt(timeArrayF[1]));
+        String[] timeArrayT = timeTo.split(":");
+        LocalTime to = LocalTime.of(Integer.parseInt(timeArrayT[0]), Integer.parseInt(timeArrayT[1]));
+        return meetingService.createMeeting(title, ac, dateParsed, from, to);
     }
 
     //Tested
     @RequestMapping(value = "/update/{meetingId}", method = RequestMethod.POST)
-    public Meeting updateMeeting(@PathVariable Long meetingId, @RequestParam String title, @RequestParam ActivityCategory ac, @RequestParam LocalDate date,
-                                 @RequestParam LocalTime timeFrom, @RequestParam LocalTime timeTo) {
-        return meetingService.updateMeeting(meetingId, title, ac, date, timeFrom, timeTo);
+    public Meeting updateMeeting(@PathVariable Long meetingId, @RequestParam String title,
+                                 @RequestParam ActivityCategory ac, @RequestParam String date,
+                                 @RequestParam String timeFrom, @RequestParam String timeTo) {
+        logger.info("Updating meeting {} {} {}", date, timeFrom, timeTo);
+        String[] dateArray = date.split("-");
+        LocalDate dateParsed = LocalDate.of(Integer.parseInt(dateArray[0]), Integer.parseInt(dateArray[1]), Integer.parseInt(dateArray[2]));
+        String[] timeArrayF = timeFrom.split(":");
+        LocalTime from = LocalTime.of(Integer.parseInt(timeArrayF[0]), Integer.parseInt(timeArrayF[1]));
+        String[] timeArrayT = timeTo.split(":");
+        LocalTime to = LocalTime.of(Integer.parseInt(timeArrayT[0]), Integer.parseInt(timeArrayT[1]));
+        return meetingService.updateMeeting(meetingId, title, ac, dateParsed, from, to);
     }
 
     //Tested , problem like with user
