@@ -130,7 +130,6 @@ public class MeetingServiceImpl implements MeetingService {
             meeting.users.remove(user);
             user.meetings.remove(meeting);
             meetingRepositoryCrud.save(meeting);
-            userRepositoryCrud.save(user);
             notificationService.deleteNotificationForMeeting(meeting, user.id);
         }
     }

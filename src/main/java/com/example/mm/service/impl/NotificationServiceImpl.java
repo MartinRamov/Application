@@ -153,7 +153,8 @@ public class NotificationServiceImpl implements NotificationService {
         Set<Notification> meetings = getMeetings(userId);
         for (Notification r : meetings) {
             if (r.meeting.id.equals(meeting.id)) {
-                notificationRepositoryCrud.delete(r.id);
+                r.checked = true;
+                notificationRepositoryCrud.save(r);
                 break;
             }
         }
