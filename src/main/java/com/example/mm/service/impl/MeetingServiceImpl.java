@@ -2,6 +2,7 @@ package com.example.mm.service.impl;
 
 import com.example.mm.model.Chat;
 import com.example.mm.model.Meeting;
+import com.example.mm.model.Notification;
 import com.example.mm.model.User;
 import com.example.mm.model.categories.ActivityCategory;
 import com.example.mm.persistence.ChatRepositoryCrud;
@@ -110,16 +111,18 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public void addUserToMeeting(Long user_id, Long meeting_id) {
+    public Notification addUserToMeeting(Long user_id, Long meeting_id) {
         Meeting meeting = meetingRepositoryCrud.findOne(meeting_id);
         User user = userRepositoryCrud.findOne(user_id);
+        Notification notification = null;
         if (!meeting.users.contains(user) && !user.meetings.contains(meeting)) {
             meeting.users.add(user);
             user.meetings.add(meeting);
             meetingRepositoryCrud.save(meeting);
             userRepositoryCrud.save(user);
-            notificationService.createNotificationForMeeting(meeting.id, user.id);
+            notification = notificationService.createNotificationForMeeting(meeting.id, user.id);
         }
+        return notification;
     }
 
     @Override

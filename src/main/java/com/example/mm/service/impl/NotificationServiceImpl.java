@@ -13,9 +13,12 @@ import com.example.mm.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -36,6 +39,8 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     private UserRepositoryCrud userRepositoryCrud;
 
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public Notification createNotificationForFriendship(Long friendRequestId) {
@@ -98,8 +103,7 @@ public class NotificationServiceImpl implements NotificationService {
     public Notification checkedNotification(Long notificationId) {
         Notification notification = notificationRepositoryCrud.findOne(notificationId);
         notification.checked = true;
-        notificationRepositoryCrud.save(notification);
-        return notification;
+        return notificationRepositoryCrud.save(notification);
     }
 
     @Override
@@ -118,13 +122,11 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public Set<Notification> getMeetings(Long recieverId) {
+    public Set<Notification> getMeetings(Long receiverId) {
         Set<Notification> receiversNotifications = new HashSet<>();
         Iterable<Notification> notifications = notificationRepositoryCrud.findAll();
-        Iterator<Notification> all = notifications.iterator();
-        while (all.hasNext()) {
-            Notification notification = all.next();
-            if (notification.receiver.id == recieverId && notification.meeting != null)
+        for (Notification notification : notifications) {
+            if (Objects.equals(notification.receiver.id, receiverId) && notification.meeting != null)
                 receiversNotifications.add(notification);
 
         }
@@ -149,12 +151,12 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    @Transactional
     public void deleteNotificationForMeeting(Meeting meeting, Long userId) {
-        Set<Notification> meetings = getMeetings(userId);
-        for (Notification r : meetings) {
+        Set<Notification> userNotifications = getMeetings(userId);
+        for (Notification r : userNotifications) {
             if (r.meeting.id.equals(meeting.id)) {
-                r.checked = true;
-                notificationRepositoryCrud.save(r);
+                em.createNativeQuery("DELETE FROM notifications WHERE notifications.id = " + r.id + ";").executeUpdate();
                 break;
             }
         }

@@ -1,6 +1,7 @@
 package com.example.mm.web;
 
 import com.example.mm.model.Meeting;
+import com.example.mm.model.Notification;
 import com.example.mm.model.User;
 import com.example.mm.model.categories.ActivityCategory;
 import com.example.mm.service.MeetingService;
@@ -97,8 +98,8 @@ public class MeetingController {
 
     //Tested
     @RequestMapping(value = "/addUser/{meetingId}/{userId}", method = RequestMethod.PUT)
-    public void addUserToMeeting(@PathVariable Long meetingId, @PathVariable Long userId) {
-        meetingService.addUserToMeeting(userId, meetingId);
+    public Notification addUserToMeeting(@PathVariable Long meetingId, @PathVariable Long userId) {
+        return meetingService.addUserToMeeting(userId, meetingId);
     }
 
     //Tested

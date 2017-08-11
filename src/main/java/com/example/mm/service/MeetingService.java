@@ -1,6 +1,7 @@
 package com.example.mm.service;
 
 import com.example.mm.model.Meeting;
+import com.example.mm.model.Notification;
 import com.example.mm.model.User;
 import com.example.mm.model.categories.ActivityCategory;
 
@@ -34,7 +35,7 @@ public interface MeetingService {
 
     void decline(Long user_id, Long meeting_id);
 
-    void addUserToMeeting(Long user_id, Long meeting_id);
+    Notification addUserToMeeting(Long user_id, Long meeting_id);
 
     void removeUserFromMeeting(Long user_id, Long meeting_id);
 
