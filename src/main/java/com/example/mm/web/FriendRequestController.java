@@ -58,7 +58,7 @@ public class FriendRequestController {
     }
 
     //Tested
-    @RequestMapping(value = "/decline/{requestId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/decline/{requestId}", method = RequestMethod.POST)
     private void decline(@PathVariable Long requestId) {
         friendRequestService.declineFriendRequest(requestId);
     }
