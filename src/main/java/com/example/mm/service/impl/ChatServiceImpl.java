@@ -62,7 +62,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public void deleteChat(Long chatId) {
         Chat chat = chatRepositoryCrud.findOne(chatId);
-        for(ChatItem chatItem : chat.chatItems) {
+        for (ChatItem chatItem : chat.chatItems) {
             chatItemRepositoryCrud.delete(chatItem.id);
             System.out.println("\nAAAAAA\n");
         }
@@ -104,15 +104,14 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public void cleanChat(Long chat_id) {
-        Chat chat=chatRepositoryCrud.findOne(chat_id);
-        for(ChatItem chatItem: chat.chatItems)
-        {
+        Chat chat = chatRepositoryCrud.findOne(chat_id);
+        for (ChatItem chatItem : chat.chatItems) {
             chat.chatItems.remove(chatItem);
             chatItemRepositoryCrud.delete(chatItem);
             chatRepositoryCrud.save(chat);
         }
 
-        for(User u:chat.users){
+        for (User u : chat.users) {
             u.chats.remove(chat);
             chat.users.remove(u);
             chatRepositoryCrud.save(chat);
@@ -121,5 +120,18 @@ public class ChatServiceImpl implements ChatService {
 
         chatRepositoryCrud.delete(chat);
 
+    }
+
+    @Override
+    public void removeUser(Long chatId, Long userId) {
+        Chat chat = chatRepositoryCrud.findOne(chatId);
+        User user = userRepositoryCrud.findOne(userId);
+        if (chat.users.contains(user) && user.chats.contains(chat)) {
+            System.out.println("Deleting user: " + userId + " from chat: " + chatId);
+            chat.users.remove(user);
+            user.chats.remove(chat);
+            chatRepositoryCrud.save(chat);
+//            userRepositoryCrud.save(user);
+        }
     }
 }

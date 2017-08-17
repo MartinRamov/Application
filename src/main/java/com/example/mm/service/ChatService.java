@@ -29,5 +29,6 @@ public interface ChatService {
 
     void cleanChat(Long chat_id);
 
+    void removeUser(Long chatId, Long userId);
 
 }
