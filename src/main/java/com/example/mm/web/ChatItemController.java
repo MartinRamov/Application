@@ -5,6 +5,7 @@ import com.example.mm.model.ChatItem;
 import com.example.mm.model.User;
 import com.example.mm.service.ChatItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -56,5 +57,9 @@ public class ChatItemController {
         return chatItemService.getChatItemsForChat(chatId);
     }
 
+    @RequestMapping(value = "/getAllItems/{chatId}/afterId/{chatItemId}", method = RequestMethod.GET)
+    public Set<ChatItem> getChatItemsAfterId(@PathVariable Long chatId, @PathVariable Long chatItemId) {
+        return chatItemService.getChatItemsAfterId(chatId, chatItemId);
+    }
 
 }

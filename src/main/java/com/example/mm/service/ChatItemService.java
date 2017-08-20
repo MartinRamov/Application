@@ -23,6 +23,5 @@ public interface ChatItemService {
 
     Set<ChatItem> getChatItemsForChat(Long chatId);
 
-
-
+    Set<ChatItem> getChatItemsAfterId(Long chatId, Long chatItemId);
 }

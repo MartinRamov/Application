@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Win8.1 on 02.07.2017.
@@ -42,7 +43,7 @@ public class ChatItemServiceImpl implements ChatItemService {
 
     @Override
     public void deleteChatItem(Long chatItemId) {
-        ChatItem chatItem= chatItemRepositoryCrud.findOne(chatItemId);
+        ChatItem chatItem = chatItemRepositoryCrud.findOne(chatItemId);
         Chat chat = chatRepositoryCrud.findOne(chatItem.chat.id);
         chat.chatItems.remove(chatItem);
         chatRepositoryCrud.save(chat);
@@ -67,5 +68,13 @@ public class ChatItemServiceImpl implements ChatItemService {
     @Override
     public Set<ChatItem> getChatItemsForChat(Long chatId) {
         return chatRepositoryCrud.findOne(chatId).chatItems;
+    }
+
+    @Override
+    public Set<ChatItem> getChatItemsAfterId(Long chatId, Long chatItemId) {
+        Chat chat = chatRepositoryCrud.findOne(chatId);
+        Set<ChatItem> chatItemSet = chat.chatItems;
+        chatItemSet = chatItemSet.stream().filter(chatItem -> chatItem.id > chatItemId).collect(Collectors.toSet());
+        return chatItemSet;
     }
 }
