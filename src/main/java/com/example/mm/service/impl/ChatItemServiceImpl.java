@@ -10,6 +10,8 @@ import com.example.mm.service.ChatItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 /**
@@ -34,8 +36,8 @@ public class ChatItemServiceImpl implements ChatItemService {
         chatItem.user = userRepositoryCrud.findOne(userId);
         chatItem.chat = chatRepositoryCrud.findOne(chatId);
         chatItem.message = message;
-        chatItem = chatItemRepositoryCrud.save(chatItem);
-        return chatItem;
+        chatItem.timeSent = LocalDateTime.now();
+        return chatItemRepositoryCrud.save(chatItem);
     }
 
     @Override

@@ -1,11 +1,9 @@
 package com.example.mm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 /**
  * Created by Win8.1 on 01.07.2017.
@@ -25,7 +23,7 @@ public class ChatItem extends BaseEntity {
     public User user;
 
     @Column
-    public LocalTime timeSent;
+    public LocalDateTime timeSent;
 
     @Column
     public String message;
