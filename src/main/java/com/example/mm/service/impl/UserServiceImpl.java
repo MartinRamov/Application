@@ -40,6 +40,14 @@ public class UserServiceImpl implements UserService {
         user.email = email;
         if (password != null)
             user.password = passwordEncoder.encode(password);
+        user.isPremiumUser = false;
+        return userRepositoryCrud.save(user);
+    }
+
+    @Override
+    public User makeUserPremium(Long userId) {
+        User user = userRepositoryCrud.findOne(userId);
+        user.isPremiumUser = true;
         return userRepositoryCrud.save(user);
     }
 

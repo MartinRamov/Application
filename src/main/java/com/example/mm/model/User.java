@@ -46,6 +46,9 @@ public class User extends BaseEntity {
     @Column
     public String password;
 
+    @Column
+    public Boolean isPremiumUser;
+
     //@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
 
     @JsonIgnore
