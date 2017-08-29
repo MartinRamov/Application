@@ -25,6 +25,8 @@ public interface UserService {
 
     User updateEmail(Long id, String email);
 
+    User changePassword(Long id, String oldPassword, String newPassword);
+
     User updatePassword(Long id, String password);
 
     User getUserById(Long id);

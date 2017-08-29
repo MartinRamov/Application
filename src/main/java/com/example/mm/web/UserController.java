@@ -9,9 +9,10 @@ import com.example.mm.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -45,11 +46,11 @@ public class UserController {
                            @RequestParam String email, @RequestParam String password) {
         List<User> allUsers = userService.getAllUsers();
         allUsers.forEach(item -> {
-            if(item.email.equals(email)) {
+            if (item.email.equals(email)) {
                 throw new EmailAlreadyTakenException(email);
             }
         });
-        return userService.createUser(firstName, lastName, email, !password.equals("")? password : null);
+        return userService.createUser(firstName, lastName, email, !password.equals("") ? password : null);
     }
 
     //Tested
@@ -78,6 +79,15 @@ public class UserController {
     @RequestMapping(value = "/updatePassword/{id}", method = RequestMethod.PUT)
     public User updatePassword(@RequestParam String password, @PathVariable Long id) {
         return userService.updatePassword(id, password);
+    }
+
+    @RequestMapping(value = "/changePassword/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> changePassword(@RequestParam String oldPassword, @RequestParam String newPassword, @PathVariable Long id) {
+        User user =  userService.changePassword(id, oldPassword, newPassword);
+        if(user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
@@ -128,13 +138,13 @@ public class UserController {
 
     //Tested
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public boolean login(@RequestParam String email,@RequestParam String password){
-        return userService.login(email,password);
+    public boolean login(@RequestParam String email, @RequestParam String password) {
+        return userService.login(email, password);
     }
 
     //Tested
     @RequestMapping(value = "/getUserByEmail", method = RequestMethod.POST)
-    public User getUserByEmail(@RequestParam String email){
+    public User getUserByEmail(@RequestParam String email) {
         return userService.getUserByEmail(email);
     }
 

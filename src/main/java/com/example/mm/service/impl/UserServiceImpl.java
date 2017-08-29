@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -88,6 +87,16 @@ public class UserServiceImpl implements UserService {
         User user = userRepositoryCrud.findOne(id);
         user.email = email;
         return userRepositoryCrud.save(user);
+    }
+
+    @Override
+    public User changePassword(Long id, String oldPassword, String newPassword) {
+        User user = userRepositoryCrud.findOne(id);
+        if(passwordEncoder.matches(oldPassword, user.password)) {
+            user.password = passwordEncoder.encode(newPassword);
+            return userRepositoryCrud.save(user);
+        }
+        return null;
     }
 
     @Override
