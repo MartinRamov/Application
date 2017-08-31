@@ -70,8 +70,7 @@ public class PaypalController {
             logger.info(payments.toString());
             user.isPremiumUser = true;
             user = userService.makeUserPremium(user.id);
-            return user != null && user.isPremiumUser ?
-                    new ResponseEntity<>(true, HttpStatus.OK) : new ResponseEntity<>(false, HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(false, HttpStatus.PAYMENT_REQUIRED);
