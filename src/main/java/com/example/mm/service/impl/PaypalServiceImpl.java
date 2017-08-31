@@ -125,6 +125,7 @@ public class PaypalServiceImpl {
             payments.add(createdPayment);
         } catch (PayPalRESTException e) {
             e.printStackTrace();
+            return null;
         }
         return payments;
     }
