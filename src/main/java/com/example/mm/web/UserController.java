@@ -83,8 +83,8 @@ public class UserController {
 
     @RequestMapping(value = "/changePassword/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> changePassword(@RequestParam String oldPassword, @RequestParam String newPassword, @PathVariable Long id) {
-        User user =  userService.changePassword(id, oldPassword, newPassword);
-        if(user != null) {
+        User user = userService.changePassword(id, oldPassword, newPassword);
+        if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -164,5 +164,12 @@ public class UserController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public List<User> searchUsers(@RequestParam String keyword) {
         return userService.searchUsers(keyword);
+    }
+
+    //Tested
+    @RequestMapping(value = "/getFriendsLimitCount/{userId}", method = RequestMethod.GET)
+    public Integer getPotentialNumberOfFriends(@PathVariable Long userId) {
+        User user = userService.getUserById(userId);
+        return user.friends.size() + user.sentRequests.size() + user.receivedRequests.size();
     }
 }
