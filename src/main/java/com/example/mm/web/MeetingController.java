@@ -113,4 +113,9 @@ public class MeetingController {
     public Integer getNumberOfUsersInMeeting(@PathVariable Long meeting_id) {
         return meetingService.getNumberOfUsersInMeeting(meeting_id);
     }
+
+    @RequestMapping(value="/getMeetingTitle/{chat_id}", method = RequestMethod.GET)
+    public String getTitle(@PathVariable Long chat_id){
+        return meetingService.getTitleMeeting(chat_id);
+    }
 }

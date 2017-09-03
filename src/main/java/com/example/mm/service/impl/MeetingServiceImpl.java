@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -141,5 +142,18 @@ public class MeetingServiceImpl implements MeetingService {
     public Integer getNumberOfUsersInMeeting(Long meeting_id) {
         Meeting meeting = meetingRepositoryCrud.findOne(meeting_id);
         return meeting.users.size();
+    }
+
+    @Override
+    public String getTitleMeeting(Long chat_id) {
+        Iterable<Meeting> meetings = meetingRepositoryCrud.findAll();
+        Iterator<Meeting>iterator=meetings.iterator();
+        while(iterator.hasNext()){
+            Meeting m= iterator.next();
+            if(m.chat.id.equals(chat_id)){
+                return m.title;
+            }
+        }
+        return "";
     }
 }

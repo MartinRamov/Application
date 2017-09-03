@@ -40,4 +40,6 @@ public interface MeetingService {
     void removeUserFromMeeting(Long user_id, Long meeting_id);
 
     Integer getNumberOfUsersInMeeting(Long meeting_id);
+
+    String getTitleMeeting(Long chat_id);
 }
